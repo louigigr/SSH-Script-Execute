@@ -173,7 +173,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MetroFramework.txt" />
     <Content Include="plink.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
