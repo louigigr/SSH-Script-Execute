@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("!A2133-550!a")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("12345")>  _
         Public Property stgPass() As String
             Get
                 Return CType(Me("stgPass"),String)

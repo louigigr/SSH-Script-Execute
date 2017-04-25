@@ -15,7 +15,7 @@
       <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="stgPass" Type="System.String" Scope="User">
-      <Value Profile="(Default)">!A2133-550!a</Value>
+      <Value Profile="(Default)">12345</Value>
     </Setting>
     <Setting Name="stgPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">22</Value>
