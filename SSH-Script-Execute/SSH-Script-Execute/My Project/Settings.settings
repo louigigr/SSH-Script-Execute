@@ -20,5 +20,8 @@
     <Setting Name="stgPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">22</Value>
     </Setting>
+    <Setting Name="stgRunCount" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

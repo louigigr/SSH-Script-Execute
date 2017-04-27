@@ -36,18 +36,20 @@ Partial Class frmMain
         Me.mnuShowConnectionBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuShowStatusBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.btnPingHost = New System.Windows.Forms.Button()
         Me.ConnectionBar.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ConnectionBar
         '
+        Me.ConnectionBar.Controls.Add(Me.btnPingHost)
         Me.ConnectionBar.Controls.Add(Me.btnConnect)
         Me.ConnectionBar.Controls.Add(Me.comConType)
         Me.ConnectionBar.Dock = System.Windows.Forms.DockStyle.Top
         Me.ConnectionBar.Location = New System.Drawing.Point(0, 24)
         Me.ConnectionBar.Name = "ConnectionBar"
-        Me.ConnectionBar.Size = New System.Drawing.Size(309, 52)
+        Me.ConnectionBar.Size = New System.Drawing.Size(353, 52)
         Me.ConnectionBar.TabIndex = 1
         '
         'btnConnect
@@ -87,16 +89,16 @@ Partial Class frmMain
         Me.txtOutput.Name = "txtOutput"
         Me.txtOutput.ReadOnly = True
         Me.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtOutput.Size = New System.Drawing.Size(309, 113)
+        Me.txtOutput.Size = New System.Drawing.Size(353, 128)
         Me.txtOutput.TabIndex = 2
         Me.txtOutput.TabStop = False
         '
         'StatusBar
         '
         Me.StatusBar.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.StatusBar.Location = New System.Drawing.Point(0, 189)
+        Me.StatusBar.Location = New System.Drawing.Point(0, 204)
         Me.StatusBar.Name = "StatusBar"
-        Me.StatusBar.Size = New System.Drawing.Size(309, 22)
+        Me.StatusBar.Size = New System.Drawing.Size(353, 22)
         Me.StatusBar.SizingGrip = False
         Me.StatusBar.TabIndex = 3
         Me.StatusBar.Text = "StatusStrip1"
@@ -157,15 +159,29 @@ Partial Class frmMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuStrip1.Size = New System.Drawing.Size(309, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(353, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'btnPingHost
+        '
+        Me.btnPingHost.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnPingHost.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnPingHost.FlatAppearance.BorderSize = 0
+        Me.btnPingHost.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPingHost.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnPingHost.Location = New System.Drawing.Point(263, 14)
+        Me.btnPingHost.Name = "btnPingHost"
+        Me.btnPingHost.Size = New System.Drawing.Size(75, 24)
+        Me.btnPingHost.TabIndex = 2
+        Me.btnPingHost.Text = "Ping Host"
+        Me.btnPingHost.UseVisualStyleBackColor = False
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(309, 211)
+        Me.ClientSize = New System.Drawing.Size(353, 226)
         Me.Controls.Add(Me.txtOutput)
         Me.Controls.Add(Me.ConnectionBar)
         Me.Controls.Add(Me.StatusBar)
@@ -173,6 +189,7 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
+        Me.MinimumSize = New System.Drawing.Size(337, 265)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SSH Script Execute"
@@ -196,4 +213,5 @@ Partial Class frmMain
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents SetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents btnPingHost As Button
 End Class
