@@ -13,10 +13,9 @@ Public Class frmMain
         Dim strScript As String = My.Settings.stgScriptLocation + My.Settings.stgScriptName
         qgFunc.KillAllProcessesByName("plink")
 
-        Task.Run(
-            Sub()
 
-                If My.Computer.FileSystem.FileExists(strScript) Then
+
+        If My.Computer.FileSystem.FileExists(strScript) Then
                     'this
                     Dim text1 As String = File.ReadAllText(My.Settings.stgScriptLocation +
                                                            My.Settings.stgScriptName)
@@ -138,7 +137,7 @@ Public Class frmMain
                     MsgBox("SCRIPT DOES NOT EXIST" + vbNewLine +
                            "Please edit the script from the settings panel!")
                 End If
-            End Sub)
+
 
     End Sub
 
@@ -181,13 +180,13 @@ Public Class frmMain
     End Sub
 
     Private Sub btnPingHost_Click(sender As Object, e As EventArgs) Handles btnPingHost.Click
-        Task.Run(Sub()
-                     If My.Computer.Network.Ping(My.Settings.stgHost, 1000) Then
+
+        If My.Computer.Network.Ping(My.Settings.stgHost, 1000) Then
                          txtOutput.AppendText("Server is alive!" + vbNewLine)
                      Else
                          txtOutput.AppendText("Server is offline or rebooting!" + vbNewLine)
                      End If
-                 End Sub)
+
 
     End Sub
 End Class

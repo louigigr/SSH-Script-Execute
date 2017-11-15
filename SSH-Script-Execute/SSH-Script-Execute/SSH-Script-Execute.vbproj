@@ -72,10 +72,11 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>95BC41A4BE13D21AA0EEFA3B73F0659E9A810F30</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>5FBA3AE4C428D2883B73EECEBB1AE5ACB0480210</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>CommandPost_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -87,9 +88,6 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Renci.SshNet">
-      <HintPath>..\..\..\SSH.NET\src\Renci.SshNet.NET35\bin\Release\Renci.SshNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -159,7 +157,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CommandPost_TemporaryKey.pfx" />
     <None Include="me.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
