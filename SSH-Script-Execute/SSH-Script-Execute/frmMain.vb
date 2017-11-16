@@ -229,9 +229,11 @@ Public Class frmMain
                 If My.Computer.Network.Ping(My.Settings.stgHostIP1, 1000) Then
                     lblServer1.ForeColor = Color.Green
                     pctSrv1.Image = My.Resources.green
+                    txtOutput.AppendText(My.Settings.stgHostIP1 + " is responding" + vbNewLine)
                 Else
                     lblServer1.ForeColor = Color.Red
                     pctSrv1.Image = My.Resources.red
+                    txtOutput.AppendText(My.Settings.stgHostIP1 + " is not responding" + vbNewLine)
                 End If
             Else
                 txtOutput.AppendText("Specify IP for Host1: " + My.Settings.stgHost1 + vbNewLine)
@@ -251,9 +253,11 @@ Public Class frmMain
                 If My.Computer.Network.Ping(My.Settings.stgHostIP2, 1000) Then
                     lblServer2.ForeColor = Color.Green
                     pctSrv2.Image = My.Resources.green
+                    txtOutput.AppendText(My.Settings.stgHostIP2 + " is responding" + vbNewLine)
                 Else
                     lblServer2.ForeColor = Color.Red
                     pctSrv2.Image = My.Resources.red
+                    txtOutput.AppendText(My.Settings.stgHostIP2 + " is not responding" + vbNewLine)
                 End If
             Else
                 txtOutput.AppendText("Specify IP for Host2: " + My.Settings.stgHost2 + vbNewLine)
@@ -271,9 +275,11 @@ Public Class frmMain
                 If My.Computer.Network.Ping(My.Settings.stgHostIP3, 1000) Then
                     lblServer3.ForeColor = Color.Green
                     pctSrv3.Image = My.Resources.green
+                    txtOutput.AppendText(My.Settings.stgHostIP3 + " is responding" + vbNewLine)
                 Else
                     lblServer3.ForeColor = Color.Red
                     pctSrv3.Image = My.Resources.red
+                    txtOutput.AppendText(My.Settings.stgHostIP3 + " is not responding" + vbNewLine)
                 End If
             Else
                 txtOutput.AppendText("Specify IP for Host3: " + My.Settings.stgHost3 + vbNewLine)
@@ -287,10 +293,6 @@ Public Class frmMain
         End Try
 
 
-
-    End Sub
-
-    Private Sub ToolStripStatusLabel1_Click(sender As Object, e As EventArgs) Handles ToolStripStatusLabel1.Click
 
     End Sub
 
@@ -555,27 +557,28 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub pctPort1_Click(sender As Object, e As EventArgs) Handles pctPort1.Click
-
-        checkport(My.Settings.stgHostIP1, My.Settings.stgHostPort1, pctPort1, My.Resources.greenport, My.Resources.redport)
-
-    End Sub
-    Public Sub checkport(ByVal host As String, ByVal port As String, ByVal imageport As Object, ByVal trueimage As Object, ByVal falseimage As Object)
+    Private Sub checkport(ByVal host As String, ByVal port As String, ByVal imageport As Object, ByVal trueimage As Object,
+                         ByVal falseimage As Object, ByVal logoutput As Object)
         Using tcp As New TcpClient()
-            'Dim ar As IAsyncResult = tcp.BeginConnect(My.Settings.stgHostIP1, My.Settings.stgHostPort1, Nothing, Nothing)
             Dim ar As IAsyncResult = tcp.BeginConnect(host, port, Nothing, Nothing)
             Dim wh As System.Threading.WaitHandle = ar.AsyncWaitHandle
             Try
                 If Not ar.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1), False) Then
                     tcp.Close()
                     imageport.Image = falseimage
+                    logoutput.AppendText("Host " + host + " is not listening on port " + port + vbNewLine)
                     'Throw New TimeoutException()
                 Else
-                    imageport.Image = trueimage
-                    tcp.EndConnect(ar)
+                    Try
+                        tcp.EndConnect(ar)
+                        imageport.Image = trueimage
+                        logoutput.AppendText("Host " + host + " is responding on port " + port + vbNewLine)
+                    Catch ex As Exception
+                        logoutput.AppendText("Error on host " + host + ". " + ex.Message + vbNewLine)
+                    End Try
+
                 End If
-                'MsgBox("OK")
-                '
+
             Finally
                 wh.Close()
             End Try
@@ -584,8 +587,8 @@ Public Class frmMain
     End Sub
 
     Private Sub btnCheckPorts_Click(sender As Object, e As EventArgs) Handles btnCheckPorts.Click
-        checkport(My.Settings.stgHostIP1, My.Settings.stgHostPort1, pctPort1, My.Resources.greenport, My.Resources.redport)
-        checkport(My.Settings.stgHostIP2, My.Settings.stgHostPort2, pctPort2, My.Resources.greenport, My.Resources.redport)
-        checkport(My.Settings.stgHostIP3, My.Settings.stgHostPort3, pctPort3, My.Resources.greenport, My.Resources.redport)
+        checkport(My.Settings.stgHostIP1, My.Settings.stgHostPort1, pctPort1, My.Resources.greenport, My.Resources.redport, txtOutput)
+        checkport(My.Settings.stgHostIP2, My.Settings.stgHostPort2, pctPort2, My.Resources.greenport, My.Resources.redport, txtOutput)
+        checkport(My.Settings.stgHostIP3, My.Settings.stgHostPort3, pctPort3, My.Resources.greenport, My.Resources.redport, txtOutput)
     End Sub
 End Class

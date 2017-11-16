@@ -1,6 +1,8 @@
 ﻿Public Class frmHostList
     Private Sub frmHostList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CenterToParent()
+
+        Me.Location = New Point(frmMain.Location.X - 250, frmMain.Location.Y - 150)
+
         txtHostname1.Text = My.Settings.stgHost1
         txtHostname2.Text = My.Settings.stgHost2
         txtHostname3.Text = My.Settings.stgHost3
