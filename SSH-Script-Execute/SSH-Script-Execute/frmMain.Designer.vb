@@ -388,6 +388,8 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(392, 547)
+        Me.MinimumSize = New System.Drawing.Size(392, 547)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SSH Script Execute"

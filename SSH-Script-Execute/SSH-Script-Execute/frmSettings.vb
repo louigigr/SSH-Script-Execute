@@ -1,6 +1,6 @@
 ﻿Public Class frmSettings
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        CenterToParent()
         txtHost.Text = My.Settings.stgHost
         txtScriptLocation.Text = My.Settings.stgScriptLocation
         txtScriptName.Text = My.Settings.stgScriptName

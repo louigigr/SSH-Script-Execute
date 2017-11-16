@@ -110,8 +110,8 @@ Public Class frmMain
                                 Dim Reader As System.IO.StreamReader = conProcess.StandardOutput
                                 Try
                                     txtOutput.AppendText(Reader.ReadToEnd() + vbNewLine)
-                                    txtOutput.AppendText("<--LOG FINISHED")
-                                    Reader.Close()
+                            txtOutput.AppendText("<--LOG FINISHED" + vbNewLine)
+                            Reader.Close()
                                 Catch ex As Exception
                                     conProcess.Close()
                                     MsgBox(ex.Message)
@@ -154,6 +154,7 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CenterToScreen()
         If My.Settings.stgRunCount = 0 Then
             MsgBox("This is your first run, settings will be opened!" + vbNewLine +
                    "Make sure you set the password right or the program will fail")
@@ -229,12 +230,13 @@ Public Class frmMain
                     lblServer1.ForeColor = Color.Red
                 End If
             Else
-                MsgBox("Specify IP for Host1: " + My.Settings.stgHost1)
+                txtOutput.AppendText("Specify IP for Host1: " + My.Settings.stgHost1 + vbNewLine)
+                'MsgBox("Specify IP for Host1: " + My.Settings.stgHost1)
                 lblServer1.ForeColor = Color.Orange
             End If
 
         Catch ex As Exception
-            MsgBox("Error trying to ping Server 1 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message)
+            txtOutput.AppendText("Error trying to ping Server 1 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
             lblServer1.ForeColor = Color.Orange
         End Try
 
@@ -246,11 +248,11 @@ Public Class frmMain
                     lblServer2.ForeColor = Color.Red
                 End If
             Else
-                MsgBox("Specify IP for Host2: " + My.Settings.stgHost2)
+                txtOutput.AppendText("Specify IP for Host2: " + My.Settings.stgHost2 + vbNewLine)
                 lblServer2.ForeColor = Color.Orange
             End If
         Catch ex As Exception
-            MsgBox("Error trying to ping Server 2 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message)
+            txtOutput.AppendText("Error trying to ping Server 2 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
             lblServer2.ForeColor = Color.Orange
         End Try
 
@@ -262,11 +264,11 @@ Public Class frmMain
                     lblServer3.ForeColor = Color.Red
                 End If
             Else
-                MsgBox("Specify IP for Host3: " + My.Settings.stgHost3)
+                txtOutput.AppendText("Specify IP for Host3: " + My.Settings.stgHost3 + vbNewLine)
                 lblServer3.ForeColor = Color.Orange
             End If
         Catch ex As Exception
-            MsgBox("Error trying to ping Server 3 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message)
+            txtOutput.AppendText("Error trying to ping Server 3 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
             lblServer3.ForeColor = Color.Orange
         End Try
 
