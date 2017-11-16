@@ -48,6 +48,7 @@ Partial Class frmHostList
         Me.txtHostPort2 = New System.Windows.Forms.TextBox()
         Me.txtHostPort1 = New System.Windows.Forms.TextBox()
         Me.lblCustomPort = New System.Windows.Forms.Label()
+        Me.btnGrabHostKeys = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'lblManagedHost1
@@ -158,7 +159,7 @@ Partial Class frmHostList
         Me.btnCancel.FlatAppearance.BorderSize = 0
         Me.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCancel.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnCancel.Location = New System.Drawing.Point(491, 103)
+        Me.btnCancel.Location = New System.Drawing.Point(684, 103)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(186, 24)
         Me.btnCancel.TabIndex = 12
@@ -255,11 +256,26 @@ Partial Class frmHostList
         Me.lblCustomPort.TabIndex = 21
         Me.lblCustomPort.Text = "Custom Port"
         '
+        'btnGrabHostKeys
+        '
+        Me.btnGrabHostKeys.BackColor = System.Drawing.Color.Green
+        Me.btnGrabHostKeys.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnGrabHostKeys.FlatAppearance.BorderSize = 0
+        Me.btnGrabHostKeys.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnGrabHostKeys.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnGrabHostKeys.Location = New System.Drawing.Point(491, 103)
+        Me.btnGrabHostKeys.Name = "btnGrabHostKeys"
+        Me.btnGrabHostKeys.Size = New System.Drawing.Size(187, 24)
+        Me.btnGrabHostKeys.TabIndex = 25
+        Me.btnGrabHostKeys.Text = "Grab SSH Host Keys"
+        Me.btnGrabHostKeys.UseVisualStyleBackColor = False
+        '
         'frmHostList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(945, 142)
+        Me.Controls.Add(Me.btnGrabHostKeys)
         Me.Controls.Add(Me.txtHostPort3)
         Me.Controls.Add(Me.txtHostPort2)
         Me.Controls.Add(Me.txtHostPort1)
@@ -320,4 +336,5 @@ Partial Class frmHostList
     Friend WithEvents txtHostPort2 As TextBox
     Friend WithEvents txtHostPort1 As TextBox
     Friend WithEvents lblCustomPort As Label
+    Friend WithEvents btnGrabHostKeys As Button
 End Class

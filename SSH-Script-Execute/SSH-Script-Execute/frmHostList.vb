@@ -62,4 +62,22 @@
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Close()
     End Sub
+
+    Private Sub btnGrabHostKeys_Click(sender As Object, e As EventArgs) Handles btnGrabHostKeys.Click
+        RunCommandCom("echo", "y | plink.exe -ssh " + My.Settings.stgHostIP1 + " -l " + My.Settings.stgHostRoot1 + " -pw " + My.Settings.stgHostPass1 + " exit", False)
+        RunCommandCom("echo", "y | plink.exe -ssh " + My.Settings.stgHostIP2 + " -l " + My.Settings.stgHostRoot2 + " -pw " + My.Settings.stgHostPass2 + " exit", False)
+        RunCommandCom("echo", "y | plink.exe -ssh " + My.Settings.stgHostIP3 + " -l " + My.Settings.stgHostRoot3 + " -pw " + My.Settings.stgHostPass3 + " exit", False)
+    End Sub
+
+    Shared Sub RunCommandCom(command As String, arguments As String, permanent As Boolean)
+        'Code from https://stackoverflow.com/questions/10261521/how-to-run-dos-cmd-command-prompt-commands-from-vb-net
+        'to review
+        Dim p As Process = New Process()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        pi.WindowStyle = ProcessWindowStyle.Minimized
+        pi.Arguments = " " + If(permanent = True, "/K", "/C") + " " + command + " " + arguments
+        pi.FileName = "cmd.exe"
+        p.StartInfo = pi
+        p.Start()
+    End Sub
 End Class

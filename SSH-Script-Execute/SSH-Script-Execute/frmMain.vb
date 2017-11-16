@@ -6,6 +6,137 @@ Public Class frmMain
     'Inherits Forms.MetroForm
     Dim qgFunc As New qgFunctions
 
+    Private Sub RunPlink(ByVal strServ As String, ByVal strUser As String, ByVal strPass As String,
+                         strScript As String, ByVal ProcessToRun As String, ByVal exeToCall As String,
+                         ByVal hostPort As String, ByVal listboxControl As Object, ByVal outputlog As Object)
+        ' SAMPLE strscript = My.Settings.stgScriptLocation + My.Settings.stgScriptName
+        'Dim strScript As String = My.Settings.stgScriptLocation + My.Settings.stgScriptName
+        qgFunc.KillAllProcessesByName(ProcessToRun)
+
+        If My.Computer.FileSystem.FileExists(strScript) Then
+            'this
+            Dim text1 As String = File.ReadAllText(strScript)
+            Dim index As Integer = text1.IndexOf("reboot")
+
+            If index >= 0 Then
+
+                '#########################################
+                '# REBOOT  EXISTS                        #
+                '#########################################
+
+
+                Dim strConn As String
+                Select Case listboxControl.SelectedIndex
+                    Case 0
+                        strConn = "-ssh"
+                    Case 1
+                        strConn = "-telnet"
+                    Case 2
+                        strConn = "-P " & hostPort
+                    Case Else
+                        MsgBox("Using Custom Port with no Protocol", MsgBoxStyle.OkOnly, "OK!")
+                        strConn = "-P " & hostPort
+                End Select
+
+                Try
+
+                    'Create Process
+
+                    Dim conProcess As New Process
+                    Dim conInfo As New System.Diagnostics.ProcessStartInfo()
+
+                    conInfo.FileName = exeToCall
+                    conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " -m " & strScript
+                    conInfo.RedirectStandardInput = True
+                    conInfo.RedirectStandardOutput = True
+                    conInfo.UseShellExecute = False
+                    conInfo.CreateNoWindow = True
+                    conInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+                    conProcess.StartInfo = conInfo
+                    outputlog.AppendText("Reboot Command Detected!" + vbNewLine +
+                                              "No Output Will be displayed!")
+                    conProcess.Start()
+
+                    conProcess.Close()
+
+                Catch ex As Exception
+
+                    MsgBox(ex.ToString)
+
+                End Try
+
+            Else
+
+                '###################
+                'no reboot included
+                '###################
+
+                Dim strConn As String
+                Select Case listboxControl.SelectedIndex
+                    Case 0
+                        strConn = "-ssh"
+                    Case 1
+                        strConn = "-telnet"
+                    Case 2
+                        strConn = "-P " & hostPort
+                    Case Else
+                        MsgBox("Using Custom Port with no Protocol", MsgBoxStyle.OkOnly, "OK!")
+                        strConn = "-P " & hostPort
+                End Select
+
+                Try
+
+                    'Create Process
+
+                    Dim conProcess As New Process
+                    Dim conInfo As New System.Diagnostics.ProcessStartInfo()
+
+                    conInfo.FileName = exeToCall
+                    conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " -m " & strScript
+                    conInfo.RedirectStandardInput = True
+                    conInfo.RedirectStandardOutput = True
+                    conInfo.UseShellExecute = False
+                    conInfo.CreateNoWindow = True
+                    conInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+                    conProcess.StartInfo = conInfo
+                    outputlog.AppendText("Command Sent!" + vbNewLine)
+                    conProcess.Start()
+
+                    ''Read Response
+                    Try
+                        Dim Reader As System.IO.StreamReader = conProcess.StandardOutput
+                        Try
+                            outputlog.AppendText(Reader.ReadToEnd() + vbNewLine)
+                            outputlog.AppendText("<--LOG FINISHED" + vbNewLine)
+                            Reader.Close()
+                        Catch ex As Exception
+                            conProcess.Close()
+                            MsgBox(ex.Message)
+                        End Try
+                    Catch ex As Exception
+                        conProcess.Close()
+                        MsgBox(ex.Message)
+                    End Try
+
+                    'Disconnect
+                    conProcess.Close()
+
+                Catch ex As Exception
+
+                    MsgBox(ex.ToString)
+                End Try
+
+            End If
+        Else
+            'that
+            MsgBox("SCRIPT DOES NOT EXIST" + vbNewLine +
+                   "Please edit the script from the settings panel!")
+        End If
+
+    End Sub
+
     Private Sub MonitorStart(ByVal host As String, ByVal lblControl As Object, ByVal ImageControl As Object,
                              ByVal ImageResourceUp As Bitmap, ByVal ImageResourceDown As Bitmap,
                              ByVal ImageResourceShut As Bitmap, ByVal LogOutput As Object,
@@ -168,135 +299,9 @@ Public Class frmMain
 
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
 
-        Dim strServ As String = My.Settings.stgHost
-        Dim strUser As String = My.Settings.stgUser
-        Dim strPass As String = My.Settings.stgPass
-        Dim strScript As String = My.Settings.stgScriptLocation + My.Settings.stgScriptName
-        qgFunc.KillAllProcessesByName("plink")
-
-        If My.Computer.FileSystem.FileExists(strScript) Then
-            'this
-            Dim text1 As String = File.ReadAllText(My.Settings.stgScriptLocation +
-                                                   My.Settings.stgScriptName)
-            Dim index As Integer = text1.IndexOf("reboot")
-
-            If index >= 0 Then
-
-                '#########################################
-                '# REBOOT  EXISTS                        #
-                '#########################################
-
-
-                Dim strConn As String
-                Select Case comConType.SelectedIndex
-                    Case 0
-                        strConn = "-ssh"
-                    Case 1
-                        strConn = "-telnet"
-                    Case 2
-                        strConn = "-P " & My.Settings.stgPort
-                    Case Else
-                        MsgBox("Using Custom Port with no Protocol", MsgBoxStyle.OkOnly, "OK!")
-                        strConn = "-P " & My.Settings.stgPort
-                End Select
-
-                Try
-
-                    'Create Process
-
-                    Dim conProcess As New Process
-                    Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-                    conInfo.FileName = "plink.exe"
-                    conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " -m " & strScript
-                    conInfo.RedirectStandardInput = True
-                    conInfo.RedirectStandardOutput = True
-                    conInfo.UseShellExecute = False
-                    conInfo.CreateNoWindow = True
-                    conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-                    conProcess.StartInfo = conInfo
-                    txtOutput.AppendText("Reboot Command Detected!" + vbNewLine +
-                                              "No Output Will be displayed!")
-                    conProcess.Start()
-
-                    conProcess.Close()
-
-                Catch ex As Exception
-
-                    MsgBox(ex.ToString)
-
-                End Try
-
-            Else
-
-                '###################
-                'no reboot included
-                '###################
-
-                Dim strConn As String
-                Select Case comConType.SelectedIndex
-                    Case 0
-                        strConn = "-ssh"
-                    Case 1
-                        strConn = "-telnet"
-                    Case 2
-                        strConn = "-P " & My.Settings.stgPort
-                    Case Else
-                        MsgBox("Using Custom Port with no Protocol", MsgBoxStyle.OkOnly, "OK!")
-                        strConn = "-P " & My.Settings.stgPort
-                End Select
-
-                Try
-
-                    'Create Process
-
-                    Dim conProcess As New Process
-                    Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-                    conInfo.FileName = "plink.exe"
-                    conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " -m " & strScript
-                    conInfo.RedirectStandardInput = True
-                    conInfo.RedirectStandardOutput = True
-                    conInfo.UseShellExecute = False
-                    conInfo.CreateNoWindow = True
-                    conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-                    conProcess.StartInfo = conInfo
-                    txtOutput.AppendText("Command Sent!" + vbNewLine)
-                    conProcess.Start()
-
-                    ''Read Response
-                    Try
-                        Dim Reader As System.IO.StreamReader = conProcess.StandardOutput
-                        Try
-                            txtOutput.AppendText(Reader.ReadToEnd() + vbNewLine)
-                            txtOutput.AppendText("<--LOG FINISHED" + vbNewLine)
-                            Reader.Close()
-                        Catch ex As Exception
-                            conProcess.Close()
-                            MsgBox(ex.Message)
-                        End Try
-                    Catch ex As Exception
-                        conProcess.Close()
-                        MsgBox(ex.Message)
-                    End Try
-
-                    'Disconnect
-                    conProcess.Close()
-
-                Catch ex As Exception
-
-                    MsgBox(ex.ToString)
-                End Try
-
-            End If
-        Else
-            'that
-            MsgBox("SCRIPT DOES NOT EXIST" + vbNewLine +
-                   "Please edit the script from the settings panel!")
-        End If
-
+        RunPlink(My.Settings.stgHost, My.Settings.stgUser, My.Settings.stgPass,
+                 My.Settings.stgScriptLocation + My.Settings.stgScriptName,
+                 "plink", "plink.exe", My.Settings.stgPort, comConType, txtOutput)
 
     End Sub
 
