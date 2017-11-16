@@ -48,7 +48,7 @@ Partial Class frmSettings
         Me.lblHost.Name = "lblHost"
         Me.lblHost.Size = New System.Drawing.Size(85, 20)
         Me.lblHost.TabIndex = 0
-        Me.lblHost.Text = "Host"
+        Me.lblHost.Text = "Custom Host"
         Me.lblHost.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'lblScriptLocation

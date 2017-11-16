@@ -24,33 +24,67 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.ConnectionBar = New System.Windows.Forms.Panel()
+        Me.btnPingHost = New System.Windows.Forms.Button()
         Me.btnConnect = New System.Windows.Forms.Button()
         Me.comConType = New System.Windows.Forms.ComboBox()
         Me.txtOutput = New System.Windows.Forms.TextBox()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuClose = New System.Windows.Forms.ToolStripMenuItem()
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HostsListToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuShowConnectionBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuShowStatusBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.btnPingHost = New System.Windows.Forms.Button()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnMonitorStart = New System.Windows.Forms.Button()
+        Me.btnSrv3Shut = New System.Windows.Forms.Button()
+        Me.btnSrv2Shut = New System.Windows.Forms.Button()
+        Me.btnSrv3Reboot = New System.Windows.Forms.Button()
+        Me.btnSrv2Reboot = New System.Windows.Forms.Button()
+        Me.lblServer3 = New System.Windows.Forms.Label()
+        Me.lblServer2 = New System.Windows.Forms.Label()
+        Me.btnSrv1Shut = New System.Windows.Forms.Button()
+        Me.btnSrv1Reboot = New System.Windows.Forms.Button()
+        Me.lblServer1 = New System.Windows.Forms.Label()
+        Me.lblCustomServerMonitor = New System.Windows.Forms.Label()
+        Me.lblCustomScript = New System.Windows.Forms.Label()
         Me.ConnectionBar.SuspendLayout()
+        Me.StatusBar.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ConnectionBar
         '
+        Me.ConnectionBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ConnectionBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ConnectionBar.Controls.Add(Me.lblCustomScript)
         Me.ConnectionBar.Controls.Add(Me.btnPingHost)
         Me.ConnectionBar.Controls.Add(Me.btnConnect)
         Me.ConnectionBar.Controls.Add(Me.comConType)
-        Me.ConnectionBar.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ConnectionBar.Location = New System.Drawing.Point(0, 24)
+        Me.ConnectionBar.Location = New System.Drawing.Point(7, 27)
         Me.ConnectionBar.Name = "ConnectionBar"
-        Me.ConnectionBar.Size = New System.Drawing.Size(353, 52)
+        Me.ConnectionBar.Size = New System.Drawing.Size(357, 79)
         Me.ConnectionBar.TabIndex = 1
+        '
+        'btnPingHost
+        '
+        Me.btnPingHost.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnPingHost.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnPingHost.FlatAppearance.BorderSize = 0
+        Me.btnPingHost.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnPingHost.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnPingHost.Location = New System.Drawing.Point(263, 41)
+        Me.btnPingHost.Name = "btnPingHost"
+        Me.btnPingHost.Size = New System.Drawing.Size(75, 24)
+        Me.btnPingHost.TabIndex = 2
+        Me.btnPingHost.Text = "Ping Host"
+        Me.btnPingHost.UseVisualStyleBackColor = False
         '
         'btnConnect
         '
@@ -59,7 +93,7 @@ Partial Class frmMain
         Me.btnConnect.FlatAppearance.BorderSize = 0
         Me.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnConnect.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnConnect.Location = New System.Drawing.Point(182, 14)
+        Me.btnConnect.Location = New System.Drawing.Point(182, 41)
         Me.btnConnect.Name = "btnConnect"
         Me.btnConnect.Size = New System.Drawing.Size(75, 24)
         Me.btnConnect.TabIndex = 1
@@ -72,7 +106,7 @@ Partial Class frmMain
         Me.comConType.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.comConType.FormattingEnabled = True
         Me.comConType.Items.AddRange(New Object() {"Connect Using SSH", "Connect Using Telnet", "Conect Using Custom Port"})
-        Me.comConType.Location = New System.Drawing.Point(12, 16)
+        Me.comConType.Location = New System.Drawing.Point(12, 41)
         Me.comConType.Name = "comConType"
         Me.comConType.Size = New System.Drawing.Size(164, 21)
         Me.comConType.TabIndex = 0
@@ -80,28 +114,36 @@ Partial Class frmMain
         '
         'txtOutput
         '
+        Me.txtOutput.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtOutput.BackColor = System.Drawing.Color.White
         Me.txtOutput.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtOutput.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtOutput.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutput.Location = New System.Drawing.Point(0, 76)
+        Me.txtOutput.Location = New System.Drawing.Point(7, 264)
         Me.txtOutput.Multiline = True
         Me.txtOutput.Name = "txtOutput"
         Me.txtOutput.ReadOnly = True
         Me.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtOutput.Size = New System.Drawing.Size(353, 128)
+        Me.txtOutput.Size = New System.Drawing.Size(357, 219)
         Me.txtOutput.TabIndex = 2
         Me.txtOutput.TabStop = False
         '
         'StatusBar
         '
         Me.StatusBar.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.StatusBar.Location = New System.Drawing.Point(0, 204)
+        Me.StatusBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusBar.Location = New System.Drawing.Point(0, 486)
         Me.StatusBar.Name = "StatusBar"
-        Me.StatusBar.Size = New System.Drawing.Size(353, 22)
+        Me.StatusBar.Size = New System.Drawing.Size(376, 22)
         Me.StatusBar.SizingGrip = False
         Me.StatusBar.TabIndex = 3
         Me.StatusBar.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(182, 17)
+        Me.ToolStripStatusLabel1.Text = "Software by Quadrant Global LTD"
         '
         'FileToolStripMenuItem
         '
@@ -118,7 +160,7 @@ Partial Class frmMain
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SetupToolStripMenuItem, Me.ToolStripSeparator1, Me.mnuShowConnectionBar, Me.mnuShowStatusBar})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SetupToolStripMenuItem, Me.HostsListToolStripMenuItem, Me.ToolStripSeparator1, Me.mnuShowConnectionBar, Me.mnuShowStatusBar})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.ViewToolStripMenuItem.Text = "Edit"
@@ -128,6 +170,12 @@ Partial Class frmMain
         Me.SetupToolStripMenuItem.Name = "SetupToolStripMenuItem"
         Me.SetupToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
         Me.SetupToolStripMenuItem.Text = "Setup"
+        '
+        'HostsListToolStripMenuItem
+        '
+        Me.HostsListToolStripMenuItem.Name = "HostsListToolStripMenuItem"
+        Me.HostsListToolStripMenuItem.Size = New System.Drawing.Size(188, 22)
+        Me.HostsListToolStripMenuItem.Text = "Host List"
         '
         'ToolStripSeparator1
         '
@@ -139,9 +187,11 @@ Partial Class frmMain
         Me.mnuShowConnectionBar.Checked = True
         Me.mnuShowConnectionBar.CheckOnClick = True
         Me.mnuShowConnectionBar.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.mnuShowConnectionBar.Enabled = False
         Me.mnuShowConnectionBar.Name = "mnuShowConnectionBar"
         Me.mnuShowConnectionBar.Size = New System.Drawing.Size(188, 22)
         Me.mnuShowConnectionBar.Text = "Show Connection Bar"
+        Me.mnuShowConnectionBar.Visible = False
         '
         'mnuShowStatusBar
         '
@@ -150,7 +200,7 @@ Partial Class frmMain
         Me.mnuShowStatusBar.CheckState = System.Windows.Forms.CheckState.Checked
         Me.mnuShowStatusBar.Name = "mnuShowStatusBar"
         Me.mnuShowStatusBar.Size = New System.Drawing.Size(188, 22)
-        Me.mnuShowStatusBar.Text = "Show Status Bar"
+        Me.mnuShowStatusBar.Text = "Show Info Bar"
         '
         'MenuStrip1
         '
@@ -159,29 +209,178 @@ Partial Class frmMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuStrip1.Size = New System.Drawing.Size(353, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(376, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'btnPingHost
+        'Panel1
         '
-        Me.btnPingHost.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnPingHost.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnPingHost.FlatAppearance.BorderSize = 0
-        Me.btnPingHost.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnPingHost.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnPingHost.Location = New System.Drawing.Point(263, 14)
-        Me.btnPingHost.Name = "btnPingHost"
-        Me.btnPingHost.Size = New System.Drawing.Size(75, 24)
-        Me.btnPingHost.TabIndex = 2
-        Me.btnPingHost.Text = "Ping Host"
-        Me.btnPingHost.UseVisualStyleBackColor = False
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.lblCustomServerMonitor)
+        Me.Panel1.Controls.Add(Me.btnMonitorStart)
+        Me.Panel1.Controls.Add(Me.btnSrv3Shut)
+        Me.Panel1.Controls.Add(Me.btnSrv2Shut)
+        Me.Panel1.Controls.Add(Me.btnSrv3Reboot)
+        Me.Panel1.Controls.Add(Me.btnSrv2Reboot)
+        Me.Panel1.Controls.Add(Me.lblServer3)
+        Me.Panel1.Controls.Add(Me.lblServer2)
+        Me.Panel1.Controls.Add(Me.btnSrv1Shut)
+        Me.Panel1.Controls.Add(Me.btnSrv1Reboot)
+        Me.Panel1.Controls.Add(Me.lblServer1)
+        Me.Panel1.Location = New System.Drawing.Point(7, 112)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(357, 146)
+        Me.Panel1.TabIndex = 4
+        '
+        'btnMonitorStart
+        '
+        Me.btnMonitorStart.BackColor = System.Drawing.Color.Green
+        Me.btnMonitorStart.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnMonitorStart.FlatAppearance.BorderSize = 0
+        Me.btnMonitorStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnMonitorStart.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnMonitorStart.Location = New System.Drawing.Point(12, 29)
+        Me.btnMonitorStart.Name = "btnMonitorStart"
+        Me.btnMonitorStart.Size = New System.Drawing.Size(326, 24)
+        Me.btnMonitorStart.TabIndex = 9
+        Me.btnMonitorStart.Text = "Check Servers Status"
+        Me.btnMonitorStart.UseVisualStyleBackColor = False
+        '
+        'btnSrv3Shut
+        '
+        Me.btnSrv3Shut.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSrv3Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv3Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv3Shut.Location = New System.Drawing.Point(263, 118)
+        Me.btnSrv3Shut.Name = "btnSrv3Shut"
+        Me.btnSrv3Shut.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv3Shut.TabIndex = 8
+        Me.btnSrv3Shut.Text = "Shutdown"
+        Me.btnSrv3Shut.UseVisualStyleBackColor = False
+        '
+        'btnSrv2Shut
+        '
+        Me.btnSrv2Shut.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSrv2Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv2Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv2Shut.Location = New System.Drawing.Point(263, 89)
+        Me.btnSrv2Shut.Name = "btnSrv2Shut"
+        Me.btnSrv2Shut.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv2Shut.TabIndex = 7
+        Me.btnSrv2Shut.Text = "Shutdown"
+        Me.btnSrv2Shut.UseVisualStyleBackColor = False
+        '
+        'btnSrv3Reboot
+        '
+        Me.btnSrv3Reboot.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSrv3Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv3Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv3Reboot.Location = New System.Drawing.Point(182, 118)
+        Me.btnSrv3Reboot.Name = "btnSrv3Reboot"
+        Me.btnSrv3Reboot.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv3Reboot.TabIndex = 6
+        Me.btnSrv3Reboot.Text = "Reboot"
+        Me.btnSrv3Reboot.UseVisualStyleBackColor = False
+        '
+        'btnSrv2Reboot
+        '
+        Me.btnSrv2Reboot.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSrv2Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv2Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv2Reboot.Location = New System.Drawing.Point(182, 89)
+        Me.btnSrv2Reboot.Name = "btnSrv2Reboot"
+        Me.btnSrv2Reboot.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv2Reboot.TabIndex = 5
+        Me.btnSrv2Reboot.Text = "Reboot"
+        Me.btnSrv2Reboot.UseVisualStyleBackColor = False
+        '
+        'lblServer3
+        '
+        Me.lblServer3.AutoSize = True
+        Me.lblServer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServer3.Location = New System.Drawing.Point(12, 123)
+        Me.lblServer3.Name = "lblServer3"
+        Me.lblServer3.Size = New System.Drawing.Size(53, 13)
+        Me.lblServer3.TabIndex = 4
+        Me.lblServer3.Text = "Server - 3"
+        Me.lblServer3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblServer2
+        '
+        Me.lblServer2.AutoSize = True
+        Me.lblServer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServer2.Location = New System.Drawing.Point(12, 94)
+        Me.lblServer2.Name = "lblServer2"
+        Me.lblServer2.Size = New System.Drawing.Size(53, 13)
+        Me.lblServer2.TabIndex = 3
+        Me.lblServer2.Text = "Server - 2"
+        Me.lblServer2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnSrv1Shut
+        '
+        Me.btnSrv1Shut.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSrv1Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv1Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv1Shut.Location = New System.Drawing.Point(263, 59)
+        Me.btnSrv1Shut.Name = "btnSrv1Shut"
+        Me.btnSrv1Shut.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv1Shut.TabIndex = 2
+        Me.btnSrv1Shut.Text = "Shutdown"
+        Me.btnSrv1Shut.UseVisualStyleBackColor = False
+        '
+        'btnSrv1Reboot
+        '
+        Me.btnSrv1Reboot.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSrv1Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv1Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv1Reboot.Location = New System.Drawing.Point(182, 59)
+        Me.btnSrv1Reboot.Name = "btnSrv1Reboot"
+        Me.btnSrv1Reboot.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv1Reboot.TabIndex = 1
+        Me.btnSrv1Reboot.Text = "Reboot"
+        Me.btnSrv1Reboot.UseVisualStyleBackColor = False
+        '
+        'lblServer1
+        '
+        Me.lblServer1.AutoSize = True
+        Me.lblServer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServer1.Location = New System.Drawing.Point(12, 64)
+        Me.lblServer1.Name = "lblServer1"
+        Me.lblServer1.Size = New System.Drawing.Size(53, 13)
+        Me.lblServer1.TabIndex = 0
+        Me.lblServer1.Text = "Server - 1"
+        Me.lblServer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblCustomServerMonitor
+        '
+        Me.lblCustomServerMonitor.AutoSize = True
+        Me.lblCustomServerMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblCustomServerMonitor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomServerMonitor.ForeColor = System.Drawing.Color.Green
+        Me.lblCustomServerMonitor.Location = New System.Drawing.Point(86, 5)
+        Me.lblCustomServerMonitor.Name = "lblCustomServerMonitor"
+        Me.lblCustomServerMonitor.Size = New System.Drawing.Size(164, 17)
+        Me.lblCustomServerMonitor.TabIndex = 10
+        Me.lblCustomServerMonitor.Text = "Quick Server Operations"
+        '
+        'lblCustomScript
+        '
+        Me.lblCustomScript.AutoSize = True
+        Me.lblCustomScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblCustomScript.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomScript.ForeColor = System.Drawing.Color.Green
+        Me.lblCustomScript.Location = New System.Drawing.Point(87, 7)
+        Me.lblCustomScript.Name = "lblCustomScript"
+        Me.lblCustomScript.Size = New System.Drawing.Size(148, 17)
+        Me.lblCustomScript.TabIndex = 11
+        Me.lblCustomScript.Text = "Run Script Operations"
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(353, 226)
+        Me.ClientSize = New System.Drawing.Size(376, 508)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.txtOutput)
         Me.Controls.Add(Me.ConnectionBar)
         Me.Controls.Add(Me.StatusBar)
@@ -189,13 +388,17 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(337, 265)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SSH Script Execute"
         Me.ConnectionBar.ResumeLayout(False)
+        Me.ConnectionBar.PerformLayout()
+        Me.StatusBar.ResumeLayout(False)
+        Me.StatusBar.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -214,4 +417,19 @@ Partial Class frmMain
     Friend WithEvents SetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents btnPingHost As Button
+    Friend WithEvents HostsListToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents btnSrv1Shut As Button
+    Friend WithEvents btnSrv1Reboot As Button
+    Friend WithEvents lblServer1 As Label
+    Friend WithEvents btnSrv3Shut As Button
+    Friend WithEvents btnSrv2Shut As Button
+    Friend WithEvents btnSrv3Reboot As Button
+    Friend WithEvents btnSrv2Reboot As Button
+    Friend WithEvents lblServer3 As Label
+    Friend WithEvents lblServer2 As Label
+    Friend WithEvents btnMonitorStart As Button
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
+    Friend WithEvents lblCustomServerMonitor As Label
+    Friend WithEvents lblCustomScript As Label
 End Class

@@ -15,7 +15,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -29,7 +29,7 @@ Namespace My
     Private Shared addedHandlerLockObject As New Object
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
-    Private Shared Sub AutoSaveSettings(ByVal sender As Global.System.Object, ByVal e As Global.System.EventArgs)
+    Private Shared Sub AutoSaveSettings(sender As Global.System.Object, e As Global.System.EventArgs)
         If My.Application.SaveMySettingsOnExit Then
             My.Settings.Save()
         End If
@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("192.168.2.7")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("192.168.1.1")>  _
         Public Property stgHost() As String
             Get
                 Return CType(Me("stgHost"),String)
@@ -135,6 +135,186 @@ Namespace My
             End Get
             Set
                 Me("stgRunCount") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Ubuntu Server Test")>  _
+        Public Property stgHost1() As String
+            Get
+                Return CType(Me("stgHost1"),String)
+            End Get
+            Set
+                Me("stgHost1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("192.168.1.2")>  _
+        Public Property stgHostIP1() As String
+            Get
+                Return CType(Me("stgHostIP1"),String)
+            End Get
+            Set
+                Me("stgHostIP1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("PBX Server")>  _
+        Public Property stgHost2() As String
+            Get
+                Return CType(Me("stgHost2"),String)
+            End Get
+            Set
+                Me("stgHost2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("192.168.1.3")>  _
+        Public Property stgHostIP2() As String
+            Get
+                Return CType(Me("stgHostIP2"),String)
+            End Get
+            Set
+                Me("stgHostIP2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Firewall")>  _
+        Public Property stgHost3() As String
+            Get
+                Return CType(Me("stgHost3"),String)
+            End Get
+            Set
+                Me("stgHost3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("192.168.1.4")>  _
+        Public Property stgHostIP3() As String
+            Get
+                Return CType(Me("stgHostIP3"),String)
+            End Get
+            Set
+                Me("stgHostIP3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("root")>  _
+        Public Property stgHostRoot1() As String
+            Get
+                Return CType(Me("stgHostRoot1"),String)
+            End Get
+            Set
+                Me("stgHostRoot1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("12345")>  _
+        Public Property stgHostPass1() As String
+            Get
+                Return CType(Me("stgHostPass1"),String)
+            End Get
+            Set
+                Me("stgHostPass1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("12345")>  _
+        Public Property stgHostPass2() As String
+            Get
+                Return CType(Me("stgHostPass2"),String)
+            End Get
+            Set
+                Me("stgHostPass2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("12345")>  _
+        Public Property stgHostPass3() As String
+            Get
+                Return CType(Me("stgHostPass3"),String)
+            End Get
+            Set
+                Me("stgHostPass3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("root")>  _
+        Public Property stgHostRoot2() As String
+            Get
+                Return CType(Me("stgHostRoot2"),String)
+            End Get
+            Set
+                Me("stgHostRoot2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("root")>  _
+        Public Property stgHostRoot3() As String
+            Get
+                Return CType(Me("stgHostRoot3"),String)
+            End Get
+            Set
+                Me("stgHostRoot3") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("22")>  _
+        Public Property stgHostPort1() As String
+            Get
+                Return CType(Me("stgHostPort1"),String)
+            End Get
+            Set
+                Me("stgHostPort1") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("22")>  _
+        Public Property stgHostPort2() As String
+            Get
+                Return CType(Me("stgHostPort2"),String)
+            End Get
+            Set
+                Me("stgHostPort2") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("22")>  _
+        Public Property stgHostPort3() As String
+            Get
+                Return CType(Me("stgHostPort3"),String)
+            End Get
+            Set
+                Me("stgHostPort3") = value
             End Set
         End Property
     End Class

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="stgHost" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.2.7</Value>
+      <Value Profile="(Default)">192.168.1.1</Value>
     </Setting>
     <Setting Name="stgScriptLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">.\</Value>
@@ -22,6 +22,51 @@
     </Setting>
     <Setting Name="stgRunCount" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="stgHost1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ubuntu Server Test</Value>
+    </Setting>
+    <Setting Name="stgHostIP1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.2</Value>
+    </Setting>
+    <Setting Name="stgHost2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PBX Server</Value>
+    </Setting>
+    <Setting Name="stgHostIP2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.3</Value>
+    </Setting>
+    <Setting Name="stgHost3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Firewall</Value>
+    </Setting>
+    <Setting Name="stgHostIP3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.4</Value>
+    </Setting>
+    <Setting Name="stgHostRoot1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="stgHostPass1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345</Value>
+    </Setting>
+    <Setting Name="stgHostPass2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345</Value>
+    </Setting>
+    <Setting Name="stgHostPass3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">12345</Value>
+    </Setting>
+    <Setting Name="stgHostRoot2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="stgHostRoot3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="stgHostPort1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="stgHostPort2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="stgHostPort3" Type="System.String" Scope="User">
+      <Value Profile="(Default)">22</Value>
     </Setting>
   </Settings>
 </SettingsFile>
