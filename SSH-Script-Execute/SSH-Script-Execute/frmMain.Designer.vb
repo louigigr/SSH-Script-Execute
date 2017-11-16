@@ -41,6 +41,9 @@ Partial Class frmMain
         Me.mnuShowStatusBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblPortStatus = New System.Windows.Forms.Label()
+        Me.btnCheckPorts = New System.Windows.Forms.Button()
         Me.pctPort3 = New System.Windows.Forms.PictureBox()
         Me.pctPort2 = New System.Windows.Forms.PictureBox()
         Me.pctPort1 = New System.Windows.Forms.PictureBox()
@@ -58,9 +61,6 @@ Partial Class frmMain
         Me.btnSrv1Shut = New System.Windows.Forms.Button()
         Me.btnSrv1Reboot = New System.Windows.Forms.Button()
         Me.lblServer1 = New System.Windows.Forms.Label()
-        Me.btnCheckPorts = New System.Windows.Forms.Button()
-        Me.lblPortStatus = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.ConnectionBar.SuspendLayout()
         Me.StatusBar.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -268,6 +268,38 @@ Partial Class frmMain
         Me.Panel1.Size = New System.Drawing.Size(436, 191)
         Me.Panel1.TabIndex = 4
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(204, 60)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(61, 13)
+        Me.Label2.TabIndex = 18
+        Me.Label2.Text = "Ping Status"
+        '
+        'lblPortStatus
+        '
+        Me.lblPortStatus.AutoSize = True
+        Me.lblPortStatus.Location = New System.Drawing.Point(139, 60)
+        Me.lblPortStatus.Name = "lblPortStatus"
+        Me.lblPortStatus.Size = New System.Drawing.Size(59, 13)
+        Me.lblPortStatus.TabIndex = 17
+        Me.lblPortStatus.Text = "Port Status"
+        '
+        'btnCheckPorts
+        '
+        Me.btnCheckPorts.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnCheckPorts.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCheckPorts.FlatAppearance.BorderSize = 0
+        Me.btnCheckPorts.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCheckPorts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnCheckPorts.Location = New System.Drawing.Point(229, 29)
+        Me.btnCheckPorts.Name = "btnCheckPorts"
+        Me.btnCheckPorts.Size = New System.Drawing.Size(202, 24)
+        Me.btnCheckPorts.TabIndex = 12
+        Me.btnCheckPorts.Text = "Check Ports"
+        Me.btnCheckPorts.UseVisualStyleBackColor = False
+        '
         'pctPort3
         '
         Me.pctPort3.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
@@ -458,38 +490,6 @@ Partial Class frmMain
         Me.lblServer1.TabIndex = 0
         Me.lblServer1.Text = "Server - 1"
         Me.lblServer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'btnCheckPorts
-        '
-        Me.btnCheckPorts.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnCheckPorts.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnCheckPorts.FlatAppearance.BorderSize = 0
-        Me.btnCheckPorts.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnCheckPorts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnCheckPorts.Location = New System.Drawing.Point(229, 29)
-        Me.btnCheckPorts.Name = "btnCheckPorts"
-        Me.btnCheckPorts.Size = New System.Drawing.Size(202, 24)
-        Me.btnCheckPorts.TabIndex = 12
-        Me.btnCheckPorts.Text = "Check Ports"
-        Me.btnCheckPorts.UseVisualStyleBackColor = False
-        '
-        'lblPortStatus
-        '
-        Me.lblPortStatus.AutoSize = True
-        Me.lblPortStatus.Location = New System.Drawing.Point(139, 60)
-        Me.lblPortStatus.Name = "lblPortStatus"
-        Me.lblPortStatus.Size = New System.Drawing.Size(59, 13)
-        Me.lblPortStatus.TabIndex = 17
-        Me.lblPortStatus.Text = "Port Status"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(204, 60)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(61, 13)
-        Me.Label2.TabIndex = 18
-        Me.Label2.Text = "Ping Status"
         '
         'frmMain
         '

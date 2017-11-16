@@ -6,6 +6,165 @@ Public Class frmMain
     'Inherits Forms.MetroForm
     Dim qgFunc As New qgFunctions
 
+    Private Sub MonitorStart(ByVal host As String, ByVal lblControl As Object, ByVal ImageControl As Object,
+                             ByVal ImageResourceUp As Bitmap, ByVal ImageResourceDown As Bitmap,
+                             ByVal ImageResourceShut As Bitmap, ByVal LogOutput As Object,
+                             Optional ByVal verboseName As String = "Hostname")
+        If verboseName = "" Then
+            LogOutput.AppendText("Hostname not specified, using default" + vbNewLine)
+            verboseName = "Hostname not specified"
+        End If
+        Try
+            If host IsNot "" Then
+                If My.Computer.Network.Ping(host, 1000) Then
+                    lblControl.ForeColor = Color.Green
+                    ImageControl.Image = ImageResourceUp
+                    LogOutput.AppendText(host + " is responding" + vbNewLine)
+                Else
+                    lblControl.ForeColor = Color.Red
+                    ImageControl.Image = ImageResourceDown
+                    LogOutput.AppendText(host + " is not responding" + vbNewLine)
+                End If
+            Else
+                LogOutput.AppendText("Specify IP for " + verboseName + vbNewLine)
+                'MsgBox("Specify IP for Host1: " + My.Settings.stgHost1)
+                lblControl.ForeColor = Color.Orange
+                ImageControl.Image = ImageResourceShut
+            End If
+
+        Catch ex As Exception
+            LogOutput.AppendText("Error trying to ping host -> " + verboseName + " on IP -> " + host + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
+            lblControl.ForeColor = Color.Orange
+            ImageControl.Image = ImageResourceShut
+        End Try
+    End Sub
+
+    Private Sub btnPingHost_Click(sender As Object, e As EventArgs) Handles btnPingHost.Click
+
+        If My.Computer.Network.Ping(My.Settings.stgHost, 1000) Then
+            txtOutput.AppendText("Server is alive!" + vbNewLine)
+        Else
+            txtOutput.AppendText("Server is offline or rebooting!" + vbNewLine)
+        End If
+
+    End Sub
+
+    Private Sub RebootServer(ByVal strServ As String, ByVal strUser As String, ByVal strPass As String,
+                               ByVal customPort As String, ByVal comConType As Object, ByVal logoutput As Object)
+
+        Dim strConn As String
+        Select Case comConType.SelectedIndex
+            Case 0
+                strConn = "-ssh"
+            Case 1
+                strConn = "-telnet"
+            Case 2
+                strConn = "-P " & customPort
+            Case Else
+                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
+                strConn = "-P " & customPort
+        End Select
+        qgFunc.KillAllProcessesByName("plink")
+
+        Try
+
+            Dim conProcess As New Process
+            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
+
+            conInfo.FileName = "plink.exe"
+            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " reboot"
+            conInfo.RedirectStandardInput = True
+            conInfo.RedirectStandardOutput = True
+            conInfo.UseShellExecute = False
+            conInfo.CreateNoWindow = True
+            conInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+            conProcess.StartInfo = conInfo
+            logoutput.AppendText("Reboot Command Sent!" + vbNewLine + "Use monitor controls to confirm action" + vbNewLine +
+                                 "======================================" + vbNewLine)
+            conProcess.Start()
+            conProcess.Close()
+
+        Catch ex As Exception
+
+            logoutput.AppendText("Error: " + ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub ShutdownServer(ByVal strServ As String, ByVal strUser As String, ByVal strPass As String,
+                               ByVal customPort As String, ByVal comConType As Object, ByVal logoutput As Object)
+
+        Dim strConn As String
+        Select Case comConType.SelectedIndex
+            Case 0
+                strConn = "-ssh"
+            Case 1
+                strConn = "-telnet"
+            Case 2
+                strConn = "-P " & customPort
+            Case Else
+                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
+                strConn = "-P " & customPort
+        End Select
+        qgFunc.KillAllProcessesByName("plink")
+
+        Try
+
+            Dim conProcess As New Process
+            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
+
+            conInfo.FileName = "plink.exe"
+            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " shutdown now"
+            conInfo.RedirectStandardInput = True
+            conInfo.RedirectStandardOutput = True
+            conInfo.UseShellExecute = False
+            conInfo.CreateNoWindow = True
+            conInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+            conProcess.StartInfo = conInfo
+            logoutput.AppendText("Shutdown Command Sent!" + vbNewLine + "Use monitor controls to confirm action" + vbNewLine +
+                                 "======================================" + vbNewLine)
+            conProcess.Start()
+            conProcess.Close()
+
+        Catch ex As Exception
+
+            logoutput.AppendText("Error: " + ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub checkport(ByVal host As String, ByVal port As String, ByVal imageport As Object, ByVal trueimage As Object,
+                         ByVal falseimage As Object, ByVal logoutput As Object)
+        Using tcp As New TcpClient()
+            Dim ar As IAsyncResult = tcp.BeginConnect(host, port, Nothing, Nothing)
+            Dim wh As System.Threading.WaitHandle = ar.AsyncWaitHandle
+            Try
+                If Not ar.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1), False) Then
+                    tcp.Close()
+                    imageport.Image = falseimage
+                    logoutput.AppendText("Host " + host + " is not listening on port " + port + vbNewLine)
+                    'Throw New TimeoutException()
+                Else
+                    Try
+                        tcp.EndConnect(ar)
+                        imageport.Image = trueimage
+                        logoutput.AppendText("Host " + host + " is responding on port " + port + vbNewLine)
+                    Catch ex As Exception
+                        logoutput.AppendText("Error on host " + host + ". " + ex.Message + vbNewLine)
+                    End Try
+
+                End If
+
+            Finally
+                wh.Close()
+            End Try
+        End Using
+
+    End Sub
 
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
 
@@ -190,8 +349,6 @@ Public Class frmMain
 
     End Sub
 
-
-
     Private Sub SetupToolStripMenuItem_Click(sender As Object,
                                              e As EventArgs) Handles SetupToolStripMenuItem.Click
 
@@ -205,384 +362,49 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub btnPingHost_Click(sender As Object, e As EventArgs) Handles btnPingHost.Click
-
-        If My.Computer.Network.Ping(My.Settings.stgHost, 1000) Then
-            txtOutput.AppendText("Server is alive!" + vbNewLine)
-        Else
-            txtOutput.AppendText("Server is offline or rebooting!" + vbNewLine)
-        End If
-
-
-    End Sub
-
     Private Sub HostsListToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HostsListToolStripMenuItem.Click
         frmHostList.Show()
     End Sub
 
-    Dim i = 11
-
-
     Private Sub btnMonitorStart_Click(sender As Object, e As EventArgs) Handles btnMonitorStart.Click
-        Try
-            If My.Settings.stgHostIP1 IsNot "" Then
-                If My.Computer.Network.Ping(My.Settings.stgHostIP1, 1000) Then
-                    lblServer1.ForeColor = Color.Green
-                    pctSrv1.Image = My.Resources.green
-                    txtOutput.AppendText(My.Settings.stgHostIP1 + " is responding" + vbNewLine)
-                Else
-                    lblServer1.ForeColor = Color.Red
-                    pctSrv1.Image = My.Resources.red
-                    txtOutput.AppendText(My.Settings.stgHostIP1 + " is not responding" + vbNewLine)
-                End If
-            Else
-                txtOutput.AppendText("Specify IP for Host1: " + My.Settings.stgHost1 + vbNewLine)
-                'MsgBox("Specify IP for Host1: " + My.Settings.stgHost1)
-                lblServer1.ForeColor = Color.Orange
-                pctSrv1.Image = My.Resources.orange
-            End If
 
-        Catch ex As Exception
-            txtOutput.AppendText("Error trying to ping Server 1 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
-            lblServer1.ForeColor = Color.Orange
-            pctSrv1.Image = My.Resources.orange
-        End Try
-
-        Try
-            If My.Settings.stgHostIP2 IsNot "" Then
-                If My.Computer.Network.Ping(My.Settings.stgHostIP2, 1000) Then
-                    lblServer2.ForeColor = Color.Green
-                    pctSrv2.Image = My.Resources.green
-                    txtOutput.AppendText(My.Settings.stgHostIP2 + " is responding" + vbNewLine)
-                Else
-                    lblServer2.ForeColor = Color.Red
-                    pctSrv2.Image = My.Resources.red
-                    txtOutput.AppendText(My.Settings.stgHostIP2 + " is not responding" + vbNewLine)
-                End If
-            Else
-                txtOutput.AppendText("Specify IP for Host2: " + My.Settings.stgHost2 + vbNewLine)
-                lblServer2.ForeColor = Color.Orange
-                pctSrv2.Image = My.Resources.orange
-            End If
-        Catch ex As Exception
-            txtOutput.AppendText("Error trying to ping Server 2 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
-            lblServer2.ForeColor = Color.Orange
-            pctSrv2.Image = My.Resources.orange
-        End Try
-
-        Try
-            If My.Settings.stgHostIP3 IsNot "" Then
-                If My.Computer.Network.Ping(My.Settings.stgHostIP3, 1000) Then
-                    lblServer3.ForeColor = Color.Green
-                    pctSrv3.Image = My.Resources.green
-                    txtOutput.AppendText(My.Settings.stgHostIP3 + " is responding" + vbNewLine)
-                Else
-                    lblServer3.ForeColor = Color.Red
-                    pctSrv3.Image = My.Resources.red
-                    txtOutput.AppendText(My.Settings.stgHostIP3 + " is not responding" + vbNewLine)
-                End If
-            Else
-                txtOutput.AppendText("Specify IP for Host3: " + My.Settings.stgHost3 + vbNewLine)
-                lblServer3.ForeColor = Color.Orange
-                pctSrv3.Image = My.Resources.orange
-            End If
-        Catch ex As Exception
-            txtOutput.AppendText("Error trying to ping Server 3 -> " + My.Settings.stgHost1 + vbNewLine + "Error Message: " + ex.Message + vbNewLine)
-            lblServer3.ForeColor = Color.Orange
-            pctSrv3.Image = My.Resources.orange
-        End Try
-
-
+        MonitorStart(My.Settings.stgHostIP1, lblServer1, pctSrv1, My.Resources.green, My.Resources.red, My.Resources.orange, txtOutput, My.Settings.stgHost1)
+        MonitorStart(My.Settings.stgHostIP2, lblServer2, pctSrv2, My.Resources.green, My.Resources.red, My.Resources.orange, txtOutput, My.Settings.stgHost2)
+        MonitorStart(My.Settings.stgHostIP3, lblServer3, pctSrv3, My.Resources.green, My.Resources.red, My.Resources.orange, txtOutput, My.Settings.stgHost3)
 
     End Sub
 
     Private Sub btnSrv1Reboot_Click(sender As Object, e As EventArgs) Handles btnSrv1Reboot.Click
-        'plink -ssh -l username -pw password linuxbox.mycompany.com shutdown -h now
-        Dim strServ As String = My.Settings.stgHostIP1
-        Dim strUser As String = My.Settings.stgHostRoot1
-        Dim strPass As String = My.Settings.stgHostPass1
-        Dim strConn As String
-        Select Case comConType.SelectedIndex
-            Case 0
-                strConn = "-ssh"
-            Case 1
-                strConn = "-telnet"
-            Case 2
-                strConn = "-P " & My.Settings.stgHostPort1
-            Case Else
-                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
-                strConn = "-P " & My.Settings.stgHostPort1
-        End Select
-        qgFunc.KillAllProcessesByName("plink")
 
-        Try
-
-            Dim conProcess As New Process
-            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-            conInfo.FileName = "plink.exe"
-            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " reboot"
-            conInfo.RedirectStandardInput = True
-            conInfo.RedirectStandardOutput = True
-            conInfo.UseShellExecute = False
-            conInfo.CreateNoWindow = True
-            conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            conProcess.StartInfo = conInfo
-            txtOutput.AppendText("Reboot Command Detected!" + vbNewLine)
-            conProcess.Start()
-            conProcess.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
+        RebootServer(My.Settings.stgHostIP1, My.Settings.stgHostRoot1, My.Settings.stgHostPass1, My.Settings.stgHostPort1, comConType, txtOutput)
 
     End Sub
 
     Private Sub btnSrv2Reboot_Click(sender As Object, e As EventArgs) Handles btnSrv2Reboot.Click
-        Dim strServ As String = My.Settings.stgHostIP2
-        Dim strUser As String = My.Settings.stgHostRoot2
-        Dim strPass As String = My.Settings.stgHostPass2
-        Dim strConn As String
-        Select Case comConType.SelectedIndex
-            Case 0
-                strConn = "-ssh"
-            Case 1
-                strConn = "-telnet"
-            Case 2
-                strConn = "-P " & My.Settings.stgHostPort2
-            Case Else
-                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
-                strConn = "-P " & My.Settings.stgHostPort2
-        End Select
-        qgFunc.KillAllProcessesByName("plink")
 
-        Try
+        RebootServer(My.Settings.stgHostIP2, My.Settings.stgHostRoot2, My.Settings.stgHostPass2, My.Settings.stgHostPort2, comConType, txtOutput)
 
-            Dim conProcess As New Process
-            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-            conInfo.FileName = "plink.exe"
-            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " reboot"
-            conInfo.RedirectStandardInput = True
-            conInfo.RedirectStandardOutput = True
-            conInfo.UseShellExecute = False
-            conInfo.CreateNoWindow = True
-            conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            conProcess.StartInfo = conInfo
-            txtOutput.AppendText("Reboot Command Detected!" + vbNewLine)
-            conProcess.Start()
-            conProcess.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
     End Sub
 
     Private Sub btnSrv3Reboot_Click(sender As Object, e As EventArgs) Handles btnSrv3Reboot.Click
-        Dim strServ As String = My.Settings.stgHostIP3
-        Dim strUser As String = My.Settings.stgHostRoot3
-        Dim strPass As String = My.Settings.stgHostPass3
-        Dim strConn As String
-        Select Case comConType.SelectedIndex
-            Case 0
-                strConn = "-ssh"
-            Case 1
-                strConn = "-telnet"
-            Case 2
-                strConn = "-P " & My.Settings.stgHostPort3
-            Case Else
-                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
-                strConn = "-P " & My.Settings.stgHostPort3
-        End Select
-        qgFunc.KillAllProcessesByName("plink")
-
-        Try
-
-            Dim conProcess As New Process
-            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-            conInfo.FileName = "plink.exe"
-            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " reboot"
-            conInfo.RedirectStandardInput = True
-            conInfo.RedirectStandardOutput = True
-            conInfo.UseShellExecute = False
-            conInfo.CreateNoWindow = True
-            conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            conProcess.StartInfo = conInfo
-            txtOutput.AppendText("Reboot Command Detected!" + vbNewLine)
-            conProcess.Start()
-            conProcess.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
+        RebootServer(My.Settings.stgHostIP3, My.Settings.stgHostRoot3, My.Settings.stgHostPass3, My.Settings.stgHostPort3, comConType, txtOutput)
     End Sub
 
     Private Sub btnSrv1Shut_Click(sender As Object, e As EventArgs) Handles btnSrv1Shut.Click
-        Dim strServ As String = My.Settings.stgHostIP1
-        Dim strUser As String = My.Settings.stgHostRoot1
-        Dim strPass As String = My.Settings.stgHostPass1
-        Dim strConn As String
-        Select Case comConType.SelectedIndex
-            Case 0
-                strConn = "-ssh"
-            Case 1
-                strConn = "-telnet"
-            Case 2
-                strConn = "-P " & My.Settings.stgHostPort1
-            Case Else
-                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
-                strConn = "-P " & My.Settings.stgHostPort1
-        End Select
-        qgFunc.KillAllProcessesByName("plink")
 
-        Try
+        ShutdownServer(My.Settings.stgHostIP1, My.Settings.stgHostRoot1, My.Settings.stgHostPass1, My.Settings.stgHostPort1, comConType, txtOutput)
 
-            Dim conProcess As New Process
-            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-            conInfo.FileName = "plink.exe"
-            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " shutdown now"
-            conInfo.RedirectStandardInput = True
-            conInfo.RedirectStandardOutput = True
-            conInfo.UseShellExecute = False
-            conInfo.CreateNoWindow = True
-            conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            conProcess.StartInfo = conInfo
-            txtOutput.AppendText("Shutdown Command Detected!" + vbNewLine)
-            conProcess.Start()
-            conProcess.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
     End Sub
 
     Private Sub btnSrv2Shut_Click(sender As Object, e As EventArgs) Handles btnSrv2Shut.Click
-        Dim strServ As String = My.Settings.stgHostIP2
-        Dim strUser As String = My.Settings.stgHostRoot2
-        Dim strPass As String = My.Settings.stgHostPass2
-        Dim strConn As String
-        Select Case comConType.SelectedIndex
-            Case 0
-                strConn = "-ssh"
-            Case 1
-                strConn = "-telnet"
-            Case 2
-                strConn = "-P " & My.Settings.stgHostPort2
-            Case Else
-                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
-                strConn = "-P " & My.Settings.stgHostPort2
-        End Select
-        qgFunc.KillAllProcessesByName("plink")
 
-        Try
+        ShutdownServer(My.Settings.stgHostIP2, My.Settings.stgHostRoot2, My.Settings.stgHostPass2, My.Settings.stgHostPort2, comConType, txtOutput)
 
-            Dim conProcess As New Process
-            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-            conInfo.FileName = "plink.exe"
-            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " shutdown now"
-            conInfo.RedirectStandardInput = True
-            conInfo.RedirectStandardOutput = True
-            conInfo.UseShellExecute = False
-            conInfo.CreateNoWindow = True
-            conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            conProcess.StartInfo = conInfo
-            txtOutput.AppendText("Shutdown Command Detected!" + vbNewLine)
-            conProcess.Start()
-            conProcess.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
     End Sub
 
     Private Sub btnSrv3Shut_Click(sender As Object, e As EventArgs) Handles btnSrv3Shut.Click
-        Dim strServ As String = My.Settings.stgHostIP3
-        Dim strUser As String = My.Settings.stgHostRoot3
-        Dim strPass As String = My.Settings.stgHostPass3
-        Dim strConn As String
-        Select Case comConType.SelectedIndex
-            Case 0
-                strConn = "-ssh"
-            Case 1
-                strConn = "-telnet"
-            Case 2
-                strConn = "-P " & My.Settings.stgHostPort3
-            Case Else
-                MsgBox("Using Custom Port", MsgBoxStyle.OkOnly, "OK!")
-                strConn = "-P " & My.Settings.stgHostPort3
-        End Select
-        qgFunc.KillAllProcessesByName("plink")
 
-        Try
-
-            Dim conProcess As New Process
-            Dim conInfo As New System.Diagnostics.ProcessStartInfo()
-
-            conInfo.FileName = "plink.exe"
-            conInfo.Arguments = strConn & " " & strServ & " -l " & strUser & " -pw " & strPass & " shutdown now"
-            conInfo.RedirectStandardInput = True
-            conInfo.RedirectStandardOutput = True
-            conInfo.UseShellExecute = False
-            conInfo.CreateNoWindow = True
-            conInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            conProcess.StartInfo = conInfo
-            txtOutput.AppendText("Shutdown Command Detected!" + vbNewLine)
-            conProcess.Start()
-            conProcess.Close()
-
-        Catch ex As Exception
-
-            MsgBox(ex.Message)
-
-        End Try
-
-    End Sub
-
-    Private Sub checkport(ByVal host As String, ByVal port As String, ByVal imageport As Object, ByVal trueimage As Object,
-                         ByVal falseimage As Object, ByVal logoutput As Object)
-        Using tcp As New TcpClient()
-            Dim ar As IAsyncResult = tcp.BeginConnect(host, port, Nothing, Nothing)
-            Dim wh As System.Threading.WaitHandle = ar.AsyncWaitHandle
-            Try
-                If Not ar.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1), False) Then
-                    tcp.Close()
-                    imageport.Image = falseimage
-                    logoutput.AppendText("Host " + host + " is not listening on port " + port + vbNewLine)
-                    'Throw New TimeoutException()
-                Else
-                    Try
-                        tcp.EndConnect(ar)
-                        imageport.Image = trueimage
-                        logoutput.AppendText("Host " + host + " is responding on port " + port + vbNewLine)
-                    Catch ex As Exception
-                        logoutput.AppendText("Error on host " + host + ". " + ex.Message + vbNewLine)
-                    End Try
-
-                End If
-
-            Finally
-                wh.Close()
-            End Try
-        End Using
+        ShutdownServer(My.Settings.stgHostIP3, My.Settings.stgHostRoot3, My.Settings.stgHostPass3, My.Settings.stgHostPort3, comConType, txtOutput)
 
     End Sub
 
@@ -590,5 +412,29 @@ Public Class frmMain
         checkport(My.Settings.stgHostIP1, My.Settings.stgHostPort1, pctPort1, My.Resources.greenport, My.Resources.redport, txtOutput)
         checkport(My.Settings.stgHostIP2, My.Settings.stgHostPort2, pctPort2, My.Resources.greenport, My.Resources.redport, txtOutput)
         checkport(My.Settings.stgHostIP3, My.Settings.stgHostPort3, pctPort3, My.Resources.greenport, My.Resources.redport, txtOutput)
+    End Sub
+
+    Private Sub pctPort1_Click(sender As Object, e As EventArgs) Handles pctPort1.Click
+        checkport(My.Settings.stgHostIP1, My.Settings.stgHostPort1, pctPort1, My.Resources.greenport, My.Resources.redport, txtOutput)
+    End Sub
+
+    Private Sub pctPort2_Click(sender As Object, e As EventArgs) Handles pctPort2.Click
+        checkport(My.Settings.stgHostIP2, My.Settings.stgHostPort2, pctPort2, My.Resources.greenport, My.Resources.redport, txtOutput)
+    End Sub
+
+    Private Sub pctPort3_Click(sender As Object, e As EventArgs) Handles pctPort3.Click
+        checkport(My.Settings.stgHostIP3, My.Settings.stgHostPort3, pctPort3, My.Resources.greenport, My.Resources.redport, txtOutput)
+    End Sub
+
+    Private Sub pctSrv1_Click(sender As Object, e As EventArgs) Handles pctSrv1.Click
+        MonitorStart(My.Settings.stgHostIP1, lblServer1, pctSrv1, My.Resources.green, My.Resources.red, My.Resources.orange, txtOutput, My.Settings.stgHost1)
+    End Sub
+
+    Private Sub pctSrv2_Click(sender As Object, e As EventArgs) Handles pctSrv2.Click
+        MonitorStart(My.Settings.stgHostIP2, lblServer2, pctSrv2, My.Resources.green, My.Resources.red, My.Resources.orange, txtOutput, My.Settings.stgHost2)
+    End Sub
+
+    Private Sub pctSrv3_Click(sender As Object, e As EventArgs) Handles pctSrv3.Click
+        MonitorStart(My.Settings.stgHostIP3, lblServer3, pctSrv3, My.Resources.green, My.Resources.red, My.Resources.orange, txtOutput, My.Settings.stgHost3)
     End Sub
 End Class
