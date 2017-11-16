@@ -24,6 +24,7 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.ConnectionBar = New System.Windows.Forms.Panel()
+        Me.lblCustomScript = New System.Windows.Forms.Label()
         Me.btnPingHost = New System.Windows.Forms.Button()
         Me.btnConnect = New System.Windows.Forms.Button()
         Me.comConType = New System.Windows.Forms.ComboBox()
@@ -40,6 +41,13 @@ Partial Class frmMain
         Me.mnuShowStatusBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.pctPort3 = New System.Windows.Forms.PictureBox()
+        Me.pctPort2 = New System.Windows.Forms.PictureBox()
+        Me.pctPort1 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv3 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv2 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv1 = New System.Windows.Forms.PictureBox()
+        Me.lblCustomServerMonitor = New System.Windows.Forms.Label()
         Me.btnMonitorStart = New System.Windows.Forms.Button()
         Me.btnSrv3Shut = New System.Windows.Forms.Button()
         Me.btnSrv2Shut = New System.Windows.Forms.Button()
@@ -50,12 +58,19 @@ Partial Class frmMain
         Me.btnSrv1Shut = New System.Windows.Forms.Button()
         Me.btnSrv1Reboot = New System.Windows.Forms.Button()
         Me.lblServer1 = New System.Windows.Forms.Label()
-        Me.lblCustomServerMonitor = New System.Windows.Forms.Label()
-        Me.lblCustomScript = New System.Windows.Forms.Label()
+        Me.btnCheckPorts = New System.Windows.Forms.Button()
+        Me.lblPortStatus = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.ConnectionBar.SuspendLayout()
         Me.StatusBar.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.pctPort3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctPort2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctPort1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctSrv3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctSrv2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pctSrv1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ConnectionBar
@@ -69,8 +84,20 @@ Partial Class frmMain
         Me.ConnectionBar.Controls.Add(Me.comConType)
         Me.ConnectionBar.Location = New System.Drawing.Point(7, 27)
         Me.ConnectionBar.Name = "ConnectionBar"
-        Me.ConnectionBar.Size = New System.Drawing.Size(357, 79)
+        Me.ConnectionBar.Size = New System.Drawing.Size(436, 79)
         Me.ConnectionBar.TabIndex = 1
+        '
+        'lblCustomScript
+        '
+        Me.lblCustomScript.AutoSize = True
+        Me.lblCustomScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblCustomScript.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomScript.ForeColor = System.Drawing.Color.Green
+        Me.lblCustomScript.Location = New System.Drawing.Point(147, 4)
+        Me.lblCustomScript.Name = "lblCustomScript"
+        Me.lblCustomScript.Size = New System.Drawing.Size(148, 17)
+        Me.lblCustomScript.TabIndex = 11
+        Me.lblCustomScript.Text = "Run Script Operations"
         '
         'btnPingHost
         '
@@ -79,9 +106,9 @@ Partial Class frmMain
         Me.btnPingHost.FlatAppearance.BorderSize = 0
         Me.btnPingHost.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPingHost.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnPingHost.Location = New System.Drawing.Point(263, 41)
+        Me.btnPingHost.Location = New System.Drawing.Point(313, 41)
         Me.btnPingHost.Name = "btnPingHost"
-        Me.btnPingHost.Size = New System.Drawing.Size(75, 24)
+        Me.btnPingHost.Size = New System.Drawing.Size(118, 24)
         Me.btnPingHost.TabIndex = 2
         Me.btnPingHost.Text = "Ping Host"
         Me.btnPingHost.UseVisualStyleBackColor = False
@@ -93,9 +120,9 @@ Partial Class frmMain
         Me.btnConnect.FlatAppearance.BorderSize = 0
         Me.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnConnect.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnConnect.Location = New System.Drawing.Point(182, 41)
+        Me.btnConnect.Location = New System.Drawing.Point(194, 41)
         Me.btnConnect.Name = "btnConnect"
-        Me.btnConnect.Size = New System.Drawing.Size(75, 24)
+        Me.btnConnect.Size = New System.Drawing.Size(113, 24)
         Me.btnConnect.TabIndex = 1
         Me.btnConnect.Text = "Execute"
         Me.btnConnect.UseVisualStyleBackColor = False
@@ -108,7 +135,7 @@ Partial Class frmMain
         Me.comConType.Items.AddRange(New Object() {"Connect Using SSH", "Connect Using Telnet", "Conect Using Custom Port"})
         Me.comConType.Location = New System.Drawing.Point(12, 41)
         Me.comConType.Name = "comConType"
-        Me.comConType.Size = New System.Drawing.Size(164, 21)
+        Me.comConType.Size = New System.Drawing.Size(176, 21)
         Me.comConType.TabIndex = 0
         Me.comConType.Text = "Select A Connection Method"
         '
@@ -119,12 +146,12 @@ Partial Class frmMain
         Me.txtOutput.BackColor = System.Drawing.Color.White
         Me.txtOutput.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtOutput.Font = New System.Drawing.Font("Calibri", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutput.Location = New System.Drawing.Point(7, 264)
+        Me.txtOutput.Location = New System.Drawing.Point(7, 309)
         Me.txtOutput.Multiline = True
         Me.txtOutput.Name = "txtOutput"
         Me.txtOutput.ReadOnly = True
         Me.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtOutput.Size = New System.Drawing.Size(357, 219)
+        Me.txtOutput.Size = New System.Drawing.Size(436, 174)
         Me.txtOutput.TabIndex = 2
         Me.txtOutput.TabStop = False
         '
@@ -134,7 +161,7 @@ Partial Class frmMain
         Me.StatusBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
         Me.StatusBar.Location = New System.Drawing.Point(0, 486)
         Me.StatusBar.Name = "StatusBar"
-        Me.StatusBar.Size = New System.Drawing.Size(376, 22)
+        Me.StatusBar.Size = New System.Drawing.Size(455, 22)
         Me.StatusBar.SizingGrip = False
         Me.StatusBar.TabIndex = 3
         Me.StatusBar.Text = "StatusStrip1"
@@ -209,13 +236,22 @@ Partial Class frmMain
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
-        Me.MenuStrip1.Size = New System.Drawing.Size(376, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(455, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.lblPortStatus)
+        Me.Panel1.Controls.Add(Me.btnCheckPorts)
+        Me.Panel1.Controls.Add(Me.pctPort3)
+        Me.Panel1.Controls.Add(Me.pctPort2)
+        Me.Panel1.Controls.Add(Me.pctPort1)
+        Me.Panel1.Controls.Add(Me.pctSrv3)
+        Me.Panel1.Controls.Add(Me.pctSrv2)
+        Me.Panel1.Controls.Add(Me.pctSrv1)
         Me.Panel1.Controls.Add(Me.lblCustomServerMonitor)
         Me.Panel1.Controls.Add(Me.btnMonitorStart)
         Me.Panel1.Controls.Add(Me.btnSrv3Shut)
@@ -229,8 +265,80 @@ Partial Class frmMain
         Me.Panel1.Controls.Add(Me.lblServer1)
         Me.Panel1.Location = New System.Drawing.Point(7, 112)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(357, 146)
+        Me.Panel1.Size = New System.Drawing.Size(436, 191)
         Me.Panel1.TabIndex = 4
+        '
+        'pctPort3
+        '
+        Me.pctPort3.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
+        Me.pctPort3.Location = New System.Drawing.Point(165, 157)
+        Me.pctPort3.Name = "pctPort3"
+        Me.pctPort3.Size = New System.Drawing.Size(23, 18)
+        Me.pctPort3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctPort3.TabIndex = 16
+        Me.pctPort3.TabStop = False
+        '
+        'pctPort2
+        '
+        Me.pctPort2.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
+        Me.pctPort2.Location = New System.Drawing.Point(165, 128)
+        Me.pctPort2.Name = "pctPort2"
+        Me.pctPort2.Size = New System.Drawing.Size(23, 18)
+        Me.pctPort2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctPort2.TabIndex = 15
+        Me.pctPort2.TabStop = False
+        '
+        'pctPort1
+        '
+        Me.pctPort1.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
+        Me.pctPort1.Location = New System.Drawing.Point(165, 98)
+        Me.pctPort1.Name = "pctPort1"
+        Me.pctPort1.Size = New System.Drawing.Size(23, 18)
+        Me.pctPort1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctPort1.TabIndex = 14
+        Me.pctPort1.TabStop = False
+        '
+        'pctSrv3
+        '
+        Me.pctSrv3.Image = Global.SSHScriptExecute.My.Resources.Resources.orange
+        Me.pctSrv3.Location = New System.Drawing.Point(229, 157)
+        Me.pctSrv3.Name = "pctSrv3"
+        Me.pctSrv3.Size = New System.Drawing.Size(23, 18)
+        Me.pctSrv3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctSrv3.TabIndex = 13
+        Me.pctSrv3.TabStop = False
+        '
+        'pctSrv2
+        '
+        Me.pctSrv2.Image = Global.SSHScriptExecute.My.Resources.Resources.red
+        Me.pctSrv2.Location = New System.Drawing.Point(229, 128)
+        Me.pctSrv2.Name = "pctSrv2"
+        Me.pctSrv2.Size = New System.Drawing.Size(23, 18)
+        Me.pctSrv2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctSrv2.TabIndex = 12
+        Me.pctSrv2.TabStop = False
+        '
+        'pctSrv1
+        '
+        Me.pctSrv1.Image = Global.SSHScriptExecute.My.Resources.Resources.green
+        Me.pctSrv1.Location = New System.Drawing.Point(229, 98)
+        Me.pctSrv1.Name = "pctSrv1"
+        Me.pctSrv1.Size = New System.Drawing.Size(23, 18)
+        Me.pctSrv1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctSrv1.TabIndex = 11
+        Me.pctSrv1.TabStop = False
+        '
+        'lblCustomServerMonitor
+        '
+        Me.lblCustomServerMonitor.AutoSize = True
+        Me.lblCustomServerMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblCustomServerMonitor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomServerMonitor.ForeColor = System.Drawing.Color.Green
+        Me.lblCustomServerMonitor.Location = New System.Drawing.Point(146, 7)
+        Me.lblCustomServerMonitor.Name = "lblCustomServerMonitor"
+        Me.lblCustomServerMonitor.Size = New System.Drawing.Size(164, 17)
+        Me.lblCustomServerMonitor.TabIndex = 10
+        Me.lblCustomServerMonitor.Text = "Quick Server Operations"
         '
         'btnMonitorStart
         '
@@ -241,7 +349,7 @@ Partial Class frmMain
         Me.btnMonitorStart.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.btnMonitorStart.Location = New System.Drawing.Point(12, 29)
         Me.btnMonitorStart.Name = "btnMonitorStart"
-        Me.btnMonitorStart.Size = New System.Drawing.Size(326, 24)
+        Me.btnMonitorStart.Size = New System.Drawing.Size(201, 24)
         Me.btnMonitorStart.TabIndex = 9
         Me.btnMonitorStart.Text = "Check Servers Status"
         Me.btnMonitorStart.UseVisualStyleBackColor = False
@@ -251,7 +359,7 @@ Partial Class frmMain
         Me.btnSrv3Shut.BackColor = System.Drawing.Color.IndianRed
         Me.btnSrv3Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSrv3Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv3Shut.Location = New System.Drawing.Point(263, 118)
+        Me.btnSrv3Shut.Location = New System.Drawing.Point(356, 152)
         Me.btnSrv3Shut.Name = "btnSrv3Shut"
         Me.btnSrv3Shut.Size = New System.Drawing.Size(75, 23)
         Me.btnSrv3Shut.TabIndex = 8
@@ -263,7 +371,7 @@ Partial Class frmMain
         Me.btnSrv2Shut.BackColor = System.Drawing.Color.IndianRed
         Me.btnSrv2Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSrv2Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv2Shut.Location = New System.Drawing.Point(263, 89)
+        Me.btnSrv2Shut.Location = New System.Drawing.Point(356, 123)
         Me.btnSrv2Shut.Name = "btnSrv2Shut"
         Me.btnSrv2Shut.Size = New System.Drawing.Size(75, 23)
         Me.btnSrv2Shut.TabIndex = 7
@@ -275,7 +383,7 @@ Partial Class frmMain
         Me.btnSrv3Reboot.BackColor = System.Drawing.Color.OrangeRed
         Me.btnSrv3Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSrv3Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv3Reboot.Location = New System.Drawing.Point(182, 118)
+        Me.btnSrv3Reboot.Location = New System.Drawing.Point(275, 152)
         Me.btnSrv3Reboot.Name = "btnSrv3Reboot"
         Me.btnSrv3Reboot.Size = New System.Drawing.Size(75, 23)
         Me.btnSrv3Reboot.TabIndex = 6
@@ -287,7 +395,7 @@ Partial Class frmMain
         Me.btnSrv2Reboot.BackColor = System.Drawing.Color.OrangeRed
         Me.btnSrv2Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSrv2Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv2Reboot.Location = New System.Drawing.Point(182, 89)
+        Me.btnSrv2Reboot.Location = New System.Drawing.Point(275, 123)
         Me.btnSrv2Reboot.Name = "btnSrv2Reboot"
         Me.btnSrv2Reboot.Size = New System.Drawing.Size(75, 23)
         Me.btnSrv2Reboot.TabIndex = 5
@@ -298,7 +406,7 @@ Partial Class frmMain
         '
         Me.lblServer3.AutoSize = True
         Me.lblServer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServer3.Location = New System.Drawing.Point(12, 123)
+        Me.lblServer3.Location = New System.Drawing.Point(9, 157)
         Me.lblServer3.Name = "lblServer3"
         Me.lblServer3.Size = New System.Drawing.Size(53, 13)
         Me.lblServer3.TabIndex = 4
@@ -309,7 +417,7 @@ Partial Class frmMain
         '
         Me.lblServer2.AutoSize = True
         Me.lblServer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServer2.Location = New System.Drawing.Point(12, 94)
+        Me.lblServer2.Location = New System.Drawing.Point(9, 128)
         Me.lblServer2.Name = "lblServer2"
         Me.lblServer2.Size = New System.Drawing.Size(53, 13)
         Me.lblServer2.TabIndex = 3
@@ -321,7 +429,7 @@ Partial Class frmMain
         Me.btnSrv1Shut.BackColor = System.Drawing.Color.IndianRed
         Me.btnSrv1Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSrv1Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv1Shut.Location = New System.Drawing.Point(263, 59)
+        Me.btnSrv1Shut.Location = New System.Drawing.Point(356, 93)
         Me.btnSrv1Shut.Name = "btnSrv1Shut"
         Me.btnSrv1Shut.Size = New System.Drawing.Size(75, 23)
         Me.btnSrv1Shut.TabIndex = 2
@@ -333,7 +441,7 @@ Partial Class frmMain
         Me.btnSrv1Reboot.BackColor = System.Drawing.Color.OrangeRed
         Me.btnSrv1Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSrv1Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv1Reboot.Location = New System.Drawing.Point(182, 59)
+        Me.btnSrv1Reboot.Location = New System.Drawing.Point(275, 93)
         Me.btnSrv1Reboot.Name = "btnSrv1Reboot"
         Me.btnSrv1Reboot.Size = New System.Drawing.Size(75, 23)
         Me.btnSrv1Reboot.TabIndex = 1
@@ -344,42 +452,50 @@ Partial Class frmMain
         '
         Me.lblServer1.AutoSize = True
         Me.lblServer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServer1.Location = New System.Drawing.Point(12, 64)
+        Me.lblServer1.Location = New System.Drawing.Point(9, 98)
         Me.lblServer1.Name = "lblServer1"
         Me.lblServer1.Size = New System.Drawing.Size(53, 13)
         Me.lblServer1.TabIndex = 0
         Me.lblServer1.Text = "Server - 1"
         Me.lblServer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'lblCustomServerMonitor
+        'btnCheckPorts
         '
-        Me.lblCustomServerMonitor.AutoSize = True
-        Me.lblCustomServerMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblCustomServerMonitor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomServerMonitor.ForeColor = System.Drawing.Color.Green
-        Me.lblCustomServerMonitor.Location = New System.Drawing.Point(86, 5)
-        Me.lblCustomServerMonitor.Name = "lblCustomServerMonitor"
-        Me.lblCustomServerMonitor.Size = New System.Drawing.Size(164, 17)
-        Me.lblCustomServerMonitor.TabIndex = 10
-        Me.lblCustomServerMonitor.Text = "Quick Server Operations"
+        Me.btnCheckPorts.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnCheckPorts.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCheckPorts.FlatAppearance.BorderSize = 0
+        Me.btnCheckPorts.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnCheckPorts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnCheckPorts.Location = New System.Drawing.Point(229, 29)
+        Me.btnCheckPorts.Name = "btnCheckPorts"
+        Me.btnCheckPorts.Size = New System.Drawing.Size(202, 24)
+        Me.btnCheckPorts.TabIndex = 12
+        Me.btnCheckPorts.Text = "Check Ports"
+        Me.btnCheckPorts.UseVisualStyleBackColor = False
         '
-        'lblCustomScript
+        'lblPortStatus
         '
-        Me.lblCustomScript.AutoSize = True
-        Me.lblCustomScript.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblCustomScript.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomScript.ForeColor = System.Drawing.Color.Green
-        Me.lblCustomScript.Location = New System.Drawing.Point(87, 7)
-        Me.lblCustomScript.Name = "lblCustomScript"
-        Me.lblCustomScript.Size = New System.Drawing.Size(148, 17)
-        Me.lblCustomScript.TabIndex = 11
-        Me.lblCustomScript.Text = "Run Script Operations"
+        Me.lblPortStatus.AutoSize = True
+        Me.lblPortStatus.Location = New System.Drawing.Point(139, 60)
+        Me.lblPortStatus.Name = "lblPortStatus"
+        Me.lblPortStatus.Size = New System.Drawing.Size(59, 13)
+        Me.lblPortStatus.TabIndex = 17
+        Me.lblPortStatus.Text = "Port Status"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(204, 60)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(61, 13)
+        Me.Label2.TabIndex = 18
+        Me.Label2.Text = "Ping Status"
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(376, 508)
+        Me.ClientSize = New System.Drawing.Size(455, 508)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.txtOutput)
         Me.Controls.Add(Me.ConnectionBar)
@@ -388,8 +504,8 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(392, 547)
-        Me.MinimumSize = New System.Drawing.Size(392, 547)
+        Me.MaximumSize = New System.Drawing.Size(471, 547)
+        Me.MinimumSize = New System.Drawing.Size(471, 547)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SSH Script Execute"
@@ -401,6 +517,12 @@ Partial Class frmMain
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.pctPort3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctPort2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctPort1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctSrv3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctSrv2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pctSrv1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -434,4 +556,13 @@ Partial Class frmMain
     Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
     Friend WithEvents lblCustomServerMonitor As Label
     Friend WithEvents lblCustomScript As Label
+    Friend WithEvents pctSrv1 As PictureBox
+    Friend WithEvents pctSrv2 As PictureBox
+    Friend WithEvents pctSrv3 As PictureBox
+    Friend WithEvents pctPort1 As PictureBox
+    Friend WithEvents pctPort3 As PictureBox
+    Friend WithEvents pctPort2 As PictureBox
+    Friend WithEvents btnCheckPorts As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents lblPortStatus As Label
 End Class

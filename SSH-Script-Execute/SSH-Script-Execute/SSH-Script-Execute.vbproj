@@ -192,6 +192,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="red-connected-512.ico" />
+    <None Include="Resources\redport.ico" />
+    <None Include="Resources\greenport.ico" />
+    <None Include="Resources\orange.ico" />
+    <None Include="Resources\red.ico" />
+    <None Include="Resources\green.ico" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
