@@ -44,12 +44,6 @@ Partial Class frmMain
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblPortStatus = New System.Windows.Forms.Label()
         Me.btnCheckPorts = New System.Windows.Forms.Button()
-        Me.pctPort3 = New System.Windows.Forms.PictureBox()
-        Me.pctPort2 = New System.Windows.Forms.PictureBox()
-        Me.pctPort1 = New System.Windows.Forms.PictureBox()
-        Me.pctSrv3 = New System.Windows.Forms.PictureBox()
-        Me.pctSrv2 = New System.Windows.Forms.PictureBox()
-        Me.pctSrv1 = New System.Windows.Forms.PictureBox()
         Me.lblCustomServerMonitor = New System.Windows.Forms.Label()
         Me.btnMonitorStart = New System.Windows.Forms.Button()
         Me.btnSrv3Shut = New System.Windows.Forms.Button()
@@ -61,6 +55,14 @@ Partial Class frmMain
         Me.btnSrv1Shut = New System.Windows.Forms.Button()
         Me.btnSrv1Reboot = New System.Windows.Forms.Button()
         Me.lblServer1 = New System.Windows.Forms.Label()
+        Me.pctPort3 = New System.Windows.Forms.PictureBox()
+        Me.pctPort2 = New System.Windows.Forms.PictureBox()
+        Me.pctPort1 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv3 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv2 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv1 = New System.Windows.Forms.PictureBox()
+        Me.ToolStripSplitButton1 = New System.Windows.Forms.ToolStripSplitButton()
+        Me.GetLANIPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConnectionBar.SuspendLayout()
         Me.StatusBar.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -158,7 +160,7 @@ Partial Class frmMain
         'StatusBar
         '
         Me.StatusBar.BackColor = System.Drawing.SystemColors.ButtonFace
-        Me.StatusBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSplitButton1, Me.ToolStripStatusLabel1})
         Me.StatusBar.Location = New System.Drawing.Point(0, 486)
         Me.StatusBar.Name = "StatusBar"
         Me.StatusBar.Size = New System.Drawing.Size(455, 22)
@@ -168,8 +170,9 @@ Partial Class frmMain
         '
         'ToolStripStatusLabel1
         '
+        Me.ToolStripStatusLabel1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(182, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(192, 17)
         Me.ToolStripStatusLabel1.Text = "Software by Quadrant Global LTD"
         '
         'FileToolStripMenuItem
@@ -299,66 +302,6 @@ Partial Class frmMain
         Me.btnCheckPorts.TabIndex = 12
         Me.btnCheckPorts.Text = "Check Ports"
         Me.btnCheckPorts.UseVisualStyleBackColor = False
-        '
-        'pctPort3
-        '
-        Me.pctPort3.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
-        Me.pctPort3.Location = New System.Drawing.Point(165, 157)
-        Me.pctPort3.Name = "pctPort3"
-        Me.pctPort3.Size = New System.Drawing.Size(23, 18)
-        Me.pctPort3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pctPort3.TabIndex = 16
-        Me.pctPort3.TabStop = False
-        '
-        'pctPort2
-        '
-        Me.pctPort2.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
-        Me.pctPort2.Location = New System.Drawing.Point(165, 128)
-        Me.pctPort2.Name = "pctPort2"
-        Me.pctPort2.Size = New System.Drawing.Size(23, 18)
-        Me.pctPort2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pctPort2.TabIndex = 15
-        Me.pctPort2.TabStop = False
-        '
-        'pctPort1
-        '
-        Me.pctPort1.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
-        Me.pctPort1.Location = New System.Drawing.Point(165, 98)
-        Me.pctPort1.Name = "pctPort1"
-        Me.pctPort1.Size = New System.Drawing.Size(23, 18)
-        Me.pctPort1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pctPort1.TabIndex = 14
-        Me.pctPort1.TabStop = False
-        '
-        'pctSrv3
-        '
-        Me.pctSrv3.Image = Global.SSHScriptExecute.My.Resources.Resources.orange
-        Me.pctSrv3.Location = New System.Drawing.Point(229, 157)
-        Me.pctSrv3.Name = "pctSrv3"
-        Me.pctSrv3.Size = New System.Drawing.Size(23, 18)
-        Me.pctSrv3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pctSrv3.TabIndex = 13
-        Me.pctSrv3.TabStop = False
-        '
-        'pctSrv2
-        '
-        Me.pctSrv2.Image = Global.SSHScriptExecute.My.Resources.Resources.red
-        Me.pctSrv2.Location = New System.Drawing.Point(229, 128)
-        Me.pctSrv2.Name = "pctSrv2"
-        Me.pctSrv2.Size = New System.Drawing.Size(23, 18)
-        Me.pctSrv2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pctSrv2.TabIndex = 12
-        Me.pctSrv2.TabStop = False
-        '
-        'pctSrv1
-        '
-        Me.pctSrv1.Image = Global.SSHScriptExecute.My.Resources.Resources.green
-        Me.pctSrv1.Location = New System.Drawing.Point(229, 98)
-        Me.pctSrv1.Name = "pctSrv1"
-        Me.pctSrv1.Size = New System.Drawing.Size(23, 18)
-        Me.pctSrv1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.pctSrv1.TabIndex = 11
-        Me.pctSrv1.TabStop = False
         '
         'lblCustomServerMonitor
         '
@@ -491,6 +434,83 @@ Partial Class frmMain
         Me.lblServer1.Text = "Server - 1"
         Me.lblServer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'pctPort3
+        '
+        Me.pctPort3.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
+        Me.pctPort3.Location = New System.Drawing.Point(165, 157)
+        Me.pctPort3.Name = "pctPort3"
+        Me.pctPort3.Size = New System.Drawing.Size(23, 18)
+        Me.pctPort3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctPort3.TabIndex = 16
+        Me.pctPort3.TabStop = False
+        '
+        'pctPort2
+        '
+        Me.pctPort2.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
+        Me.pctPort2.Location = New System.Drawing.Point(165, 128)
+        Me.pctPort2.Name = "pctPort2"
+        Me.pctPort2.Size = New System.Drawing.Size(23, 18)
+        Me.pctPort2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctPort2.TabIndex = 15
+        Me.pctPort2.TabStop = False
+        '
+        'pctPort1
+        '
+        Me.pctPort1.Image = Global.SSHScriptExecute.My.Resources.Resources.redport
+        Me.pctPort1.Location = New System.Drawing.Point(165, 98)
+        Me.pctPort1.Name = "pctPort1"
+        Me.pctPort1.Size = New System.Drawing.Size(23, 18)
+        Me.pctPort1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctPort1.TabIndex = 14
+        Me.pctPort1.TabStop = False
+        '
+        'pctSrv3
+        '
+        Me.pctSrv3.Image = Global.SSHScriptExecute.My.Resources.Resources.orange
+        Me.pctSrv3.Location = New System.Drawing.Point(229, 157)
+        Me.pctSrv3.Name = "pctSrv3"
+        Me.pctSrv3.Size = New System.Drawing.Size(23, 18)
+        Me.pctSrv3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctSrv3.TabIndex = 13
+        Me.pctSrv3.TabStop = False
+        '
+        'pctSrv2
+        '
+        Me.pctSrv2.Image = Global.SSHScriptExecute.My.Resources.Resources.red
+        Me.pctSrv2.Location = New System.Drawing.Point(229, 128)
+        Me.pctSrv2.Name = "pctSrv2"
+        Me.pctSrv2.Size = New System.Drawing.Size(23, 18)
+        Me.pctSrv2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctSrv2.TabIndex = 12
+        Me.pctSrv2.TabStop = False
+        '
+        'pctSrv1
+        '
+        Me.pctSrv1.Image = Global.SSHScriptExecute.My.Resources.Resources.green
+        Me.pctSrv1.Location = New System.Drawing.Point(229, 98)
+        Me.pctSrv1.Name = "pctSrv1"
+        Me.pctSrv1.Size = New System.Drawing.Size(23, 18)
+        Me.pctSrv1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.pctSrv1.TabIndex = 11
+        Me.pctSrv1.TabStop = False
+        '
+        'ToolStripSplitButton1
+        '
+        Me.ToolStripSplitButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GetLANIPToolStripMenuItem})
+        Me.ToolStripSplitButton1.Image = Global.SSHScriptExecute.My.Resources.Resources.clear
+        Me.ToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripSplitButton1.Name = "ToolStripSplitButton1"
+        Me.ToolStripSplitButton1.Size = New System.Drawing.Size(89, 20)
+        Me.ToolStripSplitButton1.Text = "Clear Log"
+        Me.ToolStripSplitButton1.ToolTipText = "Clear the Log Console"
+        '
+        'GetLANIPToolStripMenuItem
+        '
+        Me.GetLANIPToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 7.0!)
+        Me.GetLANIPToolStripMenuItem.Name = "GetLANIPToolStripMenuItem"
+        Me.GetLANIPToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.GetLANIPToolStripMenuItem.Text = "Local IPv4/6 Addresses"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -565,4 +585,6 @@ Partial Class frmMain
     Friend WithEvents btnCheckPorts As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents lblPortStatus As Label
+    Friend WithEvents ToolStripSplitButton1 As ToolStripSplitButton
+    Friend WithEvents GetLANIPToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -44,6 +44,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>SSHScriptExecute.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -93,6 +94,15 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OMBKey">
+      <HintPath>..\..\..\..\..\Desktop\UnlockKey\OMBKeyCommon\bin\Debug\OMBKey.dll</HintPath>
+    </Reference>
+    <Reference Include="OMBKeyBuy">
+      <HintPath>..\..\..\..\..\Desktop\UnlockKey\OMBKeyBuy\bin\Debug\OMBKeyBuy.dll</HintPath>
+    </Reference>
+    <Reference Include="OMBKeySell">
+      <HintPath>..\..\..\..\..\Desktop\UnlockKey\OMBKeySell\bin\Debug\OMBKeySell.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -118,10 +128,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="frmHostList.Designer.vb">
       <DependentUpon>frmHostList.vb</DependentUpon>
     </Compile>
     <Compile Include="frmHostList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLicSplash.Designer.vb">
+      <DependentUpon>frmLicSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLicSplash.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.vb">
@@ -137,6 +154,7 @@
     <Compile Include="frmSettings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -157,6 +175,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmHostList.resx">
       <DependentUpon>frmHostList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLicSplash.resx">
+      <DependentUpon>frmLicSplash.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
@@ -189,13 +210,13 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="plink.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="red-connected-512.ico" />
+    <None Include="Resources\clear.ico" />
     <None Include="Resources\redport.ico" />
     <None Include="Resources\greenport.ico" />
     <None Include="Resources\orange.ico" />

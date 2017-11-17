@@ -20,6 +20,24 @@
         My.Settings.stgUser = txtUsername.Text
         My.Settings.stgPass = txtPassword.Text
         My.Settings.stgPort = txtPortNumber.Text
+        Dim d As Boolean = My.Computer.Network.Ping(My.Settings.stgHost, 1000)
+        If d = True Then
+            frmHostList.RunCommandCom("echo", "y | plink.exe -ssh " + My.Settings.stgHost + " -l " + My.Settings.stgUser +
+                                  " -pw " + My.Settings.stgPass + " exit", False)
+        Else
+            frmMain.txtOutput.AppendText("The host " + My.Settings.stgHost + " appears offline" + vbNewLine)
+        End If
+        If System.IO.File.Exists(My.Settings.stgScriptLocation + My.Settings.stgScriptName) Then
+            frmMain.txtOutput.AppendText("Script selected:" + vbNewLine +
+                                     My.Settings.stgScriptLocation + My.Settings.stgScriptName + vbNewLine +
+                                     "==== S C R I P T   C O N T E N T S ====" + vbNewLine +
+                                     System.IO.File.ReadAllText(My.Settings.stgScriptLocation + My.Settings.stgScriptName) +
+                                     vbNewLine + "==== S C R I P T   C O N T E N T S ====" + vbNewLine)
+        Else
+            frmMain.txtOutput.AppendText("Script file cannot be found!" + vbNewLine)
+        End If
+
+
         Me.Close()
     End Sub
 
