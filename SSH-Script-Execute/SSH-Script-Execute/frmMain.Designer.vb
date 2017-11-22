@@ -30,6 +30,8 @@ Partial Class frmMain
         Me.comConType = New System.Windows.Forms.ComboBox()
         Me.txtOutput = New System.Windows.Forms.TextBox()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripSplitButton1 = New System.Windows.Forms.ToolStripSplitButton()
+        Me.GetLANIPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuClose = New System.Windows.Forms.ToolStripMenuItem()
@@ -39,11 +41,19 @@ Partial Class frmMain
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuShowConnectionBar = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuShowStatusBar = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.RegScreenToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.lblPortStatus = New System.Windows.Forms.Label()
         Me.btnCheckPorts = New System.Windows.Forms.Button()
+        Me.pctPort3 = New System.Windows.Forms.PictureBox()
+        Me.pctPort2 = New System.Windows.Forms.PictureBox()
+        Me.pctPort1 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv3 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv2 = New System.Windows.Forms.PictureBox()
+        Me.pctSrv1 = New System.Windows.Forms.PictureBox()
         Me.lblCustomServerMonitor = New System.Windows.Forms.Label()
         Me.btnMonitorStart = New System.Windows.Forms.Button()
         Me.btnSrv3Shut = New System.Windows.Forms.Button()
@@ -55,14 +65,6 @@ Partial Class frmMain
         Me.btnSrv1Shut = New System.Windows.Forms.Button()
         Me.btnSrv1Reboot = New System.Windows.Forms.Button()
         Me.lblServer1 = New System.Windows.Forms.Label()
-        Me.pctPort3 = New System.Windows.Forms.PictureBox()
-        Me.pctPort2 = New System.Windows.Forms.PictureBox()
-        Me.pctPort1 = New System.Windows.Forms.PictureBox()
-        Me.pctSrv3 = New System.Windows.Forms.PictureBox()
-        Me.pctSrv2 = New System.Windows.Forms.PictureBox()
-        Me.pctSrv1 = New System.Windows.Forms.PictureBox()
-        Me.ToolStripSplitButton1 = New System.Windows.Forms.ToolStripSplitButton()
-        Me.GetLANIPToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConnectionBar.SuspendLayout()
         Me.StatusBar.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -154,7 +156,7 @@ Partial Class frmMain
         Me.txtOutput.ReadOnly = True
         Me.txtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both
         Me.txtOutput.Size = New System.Drawing.Size(436, 174)
-        Me.txtOutput.TabIndex = 2
+        Me.txtOutput.TabIndex = 3
         Me.txtOutput.TabStop = False
         '
         'StatusBar
@@ -165,8 +167,25 @@ Partial Class frmMain
         Me.StatusBar.Name = "StatusBar"
         Me.StatusBar.Size = New System.Drawing.Size(455, 22)
         Me.StatusBar.SizingGrip = False
-        Me.StatusBar.TabIndex = 3
+        Me.StatusBar.TabIndex = 4
         Me.StatusBar.Text = "StatusStrip1"
+        '
+        'ToolStripSplitButton1
+        '
+        Me.ToolStripSplitButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GetLANIPToolStripMenuItem})
+        Me.ToolStripSplitButton1.Image = Global.SSHScriptExecute.My.Resources.Resources.clear
+        Me.ToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripSplitButton1.Name = "ToolStripSplitButton1"
+        Me.ToolStripSplitButton1.Size = New System.Drawing.Size(89, 20)
+        Me.ToolStripSplitButton1.Text = "Clear Log"
+        Me.ToolStripSplitButton1.ToolTipText = "Clear the Log Console"
+        '
+        'GetLANIPToolStripMenuItem
+        '
+        Me.GetLANIPToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 7.0!)
+        Me.GetLANIPToolStripMenuItem.Name = "GetLANIPToolStripMenuItem"
+        Me.GetLANIPToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.GetLANIPToolStripMenuItem.Text = "Local IPv4/6 Addresses"
         '
         'ToolStripStatusLabel1
         '
@@ -190,7 +209,7 @@ Partial Class frmMain
         '
         'ViewToolStripMenuItem
         '
-        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SetupToolStripMenuItem, Me.HostsListToolStripMenuItem, Me.ToolStripSeparator1, Me.mnuShowConnectionBar, Me.mnuShowStatusBar})
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SetupToolStripMenuItem, Me.HostsListToolStripMenuItem, Me.ToolStripSeparator1, Me.mnuShowConnectionBar, Me.mnuShowStatusBar, Me.ToolStripSeparator2, Me.RegScreenToolStripMenuItem1})
         Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
         Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.ViewToolStripMenuItem.Text = "Edit"
@@ -232,6 +251,17 @@ Partial Class frmMain
         Me.mnuShowStatusBar.Size = New System.Drawing.Size(188, 22)
         Me.mnuShowStatusBar.Text = "Show Info Bar"
         '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(185, 6)
+        '
+        'RegScreenToolStripMenuItem1
+        '
+        Me.RegScreenToolStripMenuItem1.Name = "RegScreenToolStripMenuItem1"
+        Me.RegScreenToolStripMenuItem1.Size = New System.Drawing.Size(188, 22)
+        Me.RegScreenToolStripMenuItem1.Text = "Registration"
+        '
         'MenuStrip1
         '
         Me.MenuStrip1.BackColor = System.Drawing.SystemColors.Control
@@ -269,7 +299,7 @@ Partial Class frmMain
         Me.Panel1.Location = New System.Drawing.Point(7, 112)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(436, 191)
-        Me.Panel1.TabIndex = 4
+        Me.Panel1.TabIndex = 2
         '
         'Label2
         '
@@ -299,140 +329,9 @@ Partial Class frmMain
         Me.btnCheckPorts.Location = New System.Drawing.Point(229, 29)
         Me.btnCheckPorts.Name = "btnCheckPorts"
         Me.btnCheckPorts.Size = New System.Drawing.Size(202, 24)
-        Me.btnCheckPorts.TabIndex = 12
+        Me.btnCheckPorts.TabIndex = 1
         Me.btnCheckPorts.Text = "Check Ports"
         Me.btnCheckPorts.UseVisualStyleBackColor = False
-        '
-        'lblCustomServerMonitor
-        '
-        Me.lblCustomServerMonitor.AutoSize = True
-        Me.lblCustomServerMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblCustomServerMonitor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCustomServerMonitor.ForeColor = System.Drawing.Color.Green
-        Me.lblCustomServerMonitor.Location = New System.Drawing.Point(146, 7)
-        Me.lblCustomServerMonitor.Name = "lblCustomServerMonitor"
-        Me.lblCustomServerMonitor.Size = New System.Drawing.Size(164, 17)
-        Me.lblCustomServerMonitor.TabIndex = 10
-        Me.lblCustomServerMonitor.Text = "Quick Server Operations"
-        '
-        'btnMonitorStart
-        '
-        Me.btnMonitorStart.BackColor = System.Drawing.Color.Green
-        Me.btnMonitorStart.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnMonitorStart.FlatAppearance.BorderSize = 0
-        Me.btnMonitorStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnMonitorStart.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnMonitorStart.Location = New System.Drawing.Point(12, 29)
-        Me.btnMonitorStart.Name = "btnMonitorStart"
-        Me.btnMonitorStart.Size = New System.Drawing.Size(201, 24)
-        Me.btnMonitorStart.TabIndex = 9
-        Me.btnMonitorStart.Text = "Check Servers Status"
-        Me.btnMonitorStart.UseVisualStyleBackColor = False
-        '
-        'btnSrv3Shut
-        '
-        Me.btnSrv3Shut.BackColor = System.Drawing.Color.IndianRed
-        Me.btnSrv3Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSrv3Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv3Shut.Location = New System.Drawing.Point(356, 152)
-        Me.btnSrv3Shut.Name = "btnSrv3Shut"
-        Me.btnSrv3Shut.Size = New System.Drawing.Size(75, 23)
-        Me.btnSrv3Shut.TabIndex = 8
-        Me.btnSrv3Shut.Text = "Shutdown"
-        Me.btnSrv3Shut.UseVisualStyleBackColor = False
-        '
-        'btnSrv2Shut
-        '
-        Me.btnSrv2Shut.BackColor = System.Drawing.Color.IndianRed
-        Me.btnSrv2Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSrv2Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv2Shut.Location = New System.Drawing.Point(356, 123)
-        Me.btnSrv2Shut.Name = "btnSrv2Shut"
-        Me.btnSrv2Shut.Size = New System.Drawing.Size(75, 23)
-        Me.btnSrv2Shut.TabIndex = 7
-        Me.btnSrv2Shut.Text = "Shutdown"
-        Me.btnSrv2Shut.UseVisualStyleBackColor = False
-        '
-        'btnSrv3Reboot
-        '
-        Me.btnSrv3Reboot.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnSrv3Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSrv3Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv3Reboot.Location = New System.Drawing.Point(275, 152)
-        Me.btnSrv3Reboot.Name = "btnSrv3Reboot"
-        Me.btnSrv3Reboot.Size = New System.Drawing.Size(75, 23)
-        Me.btnSrv3Reboot.TabIndex = 6
-        Me.btnSrv3Reboot.Text = "Reboot"
-        Me.btnSrv3Reboot.UseVisualStyleBackColor = False
-        '
-        'btnSrv2Reboot
-        '
-        Me.btnSrv2Reboot.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnSrv2Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSrv2Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv2Reboot.Location = New System.Drawing.Point(275, 123)
-        Me.btnSrv2Reboot.Name = "btnSrv2Reboot"
-        Me.btnSrv2Reboot.Size = New System.Drawing.Size(75, 23)
-        Me.btnSrv2Reboot.TabIndex = 5
-        Me.btnSrv2Reboot.Text = "Reboot"
-        Me.btnSrv2Reboot.UseVisualStyleBackColor = False
-        '
-        'lblServer3
-        '
-        Me.lblServer3.AutoSize = True
-        Me.lblServer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServer3.Location = New System.Drawing.Point(9, 157)
-        Me.lblServer3.Name = "lblServer3"
-        Me.lblServer3.Size = New System.Drawing.Size(53, 13)
-        Me.lblServer3.TabIndex = 4
-        Me.lblServer3.Text = "Server - 3"
-        Me.lblServer3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'lblServer2
-        '
-        Me.lblServer2.AutoSize = True
-        Me.lblServer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServer2.Location = New System.Drawing.Point(9, 128)
-        Me.lblServer2.Name = "lblServer2"
-        Me.lblServer2.Size = New System.Drawing.Size(53, 13)
-        Me.lblServer2.TabIndex = 3
-        Me.lblServer2.Text = "Server - 2"
-        Me.lblServer2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'btnSrv1Shut
-        '
-        Me.btnSrv1Shut.BackColor = System.Drawing.Color.IndianRed
-        Me.btnSrv1Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSrv1Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv1Shut.Location = New System.Drawing.Point(356, 93)
-        Me.btnSrv1Shut.Name = "btnSrv1Shut"
-        Me.btnSrv1Shut.Size = New System.Drawing.Size(75, 23)
-        Me.btnSrv1Shut.TabIndex = 2
-        Me.btnSrv1Shut.Text = "Shutdown"
-        Me.btnSrv1Shut.UseVisualStyleBackColor = False
-        '
-        'btnSrv1Reboot
-        '
-        Me.btnSrv1Reboot.BackColor = System.Drawing.Color.OrangeRed
-        Me.btnSrv1Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnSrv1Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.btnSrv1Reboot.Location = New System.Drawing.Point(275, 93)
-        Me.btnSrv1Reboot.Name = "btnSrv1Reboot"
-        Me.btnSrv1Reboot.Size = New System.Drawing.Size(75, 23)
-        Me.btnSrv1Reboot.TabIndex = 1
-        Me.btnSrv1Reboot.Text = "Reboot"
-        Me.btnSrv1Reboot.UseVisualStyleBackColor = False
-        '
-        'lblServer1
-        '
-        Me.lblServer1.AutoSize = True
-        Me.lblServer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.lblServer1.Location = New System.Drawing.Point(9, 98)
-        Me.lblServer1.Name = "lblServer1"
-        Me.lblServer1.Size = New System.Drawing.Size(53, 13)
-        Me.lblServer1.TabIndex = 0
-        Me.lblServer1.Text = "Server - 1"
-        Me.lblServer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pctPort3
         '
@@ -494,22 +393,136 @@ Partial Class frmMain
         Me.pctSrv1.TabIndex = 11
         Me.pctSrv1.TabStop = False
         '
-        'ToolStripSplitButton1
+        'lblCustomServerMonitor
         '
-        Me.ToolStripSplitButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GetLANIPToolStripMenuItem})
-        Me.ToolStripSplitButton1.Image = Global.SSHScriptExecute.My.Resources.Resources.clear
-        Me.ToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripSplitButton1.Name = "ToolStripSplitButton1"
-        Me.ToolStripSplitButton1.Size = New System.Drawing.Size(89, 20)
-        Me.ToolStripSplitButton1.Text = "Clear Log"
-        Me.ToolStripSplitButton1.ToolTipText = "Clear the Log Console"
+        Me.lblCustomServerMonitor.AutoSize = True
+        Me.lblCustomServerMonitor.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblCustomServerMonitor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCustomServerMonitor.ForeColor = System.Drawing.Color.Green
+        Me.lblCustomServerMonitor.Location = New System.Drawing.Point(146, 7)
+        Me.lblCustomServerMonitor.Name = "lblCustomServerMonitor"
+        Me.lblCustomServerMonitor.Size = New System.Drawing.Size(164, 17)
+        Me.lblCustomServerMonitor.TabIndex = 10
+        Me.lblCustomServerMonitor.Text = "Quick Server Operations"
         '
-        'GetLANIPToolStripMenuItem
+        'btnMonitorStart
         '
-        Me.GetLANIPToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 7.0!)
-        Me.GetLANIPToolStripMenuItem.Name = "GetLANIPToolStripMenuItem"
-        Me.GetLANIPToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
-        Me.GetLANIPToolStripMenuItem.Text = "Local IPv4/6 Addresses"
+        Me.btnMonitorStart.BackColor = System.Drawing.Color.Green
+        Me.btnMonitorStart.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnMonitorStart.FlatAppearance.BorderSize = 0
+        Me.btnMonitorStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnMonitorStart.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnMonitorStart.Location = New System.Drawing.Point(12, 29)
+        Me.btnMonitorStart.Name = "btnMonitorStart"
+        Me.btnMonitorStart.Size = New System.Drawing.Size(201, 24)
+        Me.btnMonitorStart.TabIndex = 0
+        Me.btnMonitorStart.Text = "Check Servers Status"
+        Me.btnMonitorStart.UseVisualStyleBackColor = False
+        '
+        'btnSrv3Shut
+        '
+        Me.btnSrv3Shut.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSrv3Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv3Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv3Shut.Location = New System.Drawing.Point(356, 152)
+        Me.btnSrv3Shut.Name = "btnSrv3Shut"
+        Me.btnSrv3Shut.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv3Shut.TabIndex = 7
+        Me.btnSrv3Shut.Text = "Shutdown"
+        Me.btnSrv3Shut.UseVisualStyleBackColor = False
+        '
+        'btnSrv2Shut
+        '
+        Me.btnSrv2Shut.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSrv2Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv2Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv2Shut.Location = New System.Drawing.Point(356, 123)
+        Me.btnSrv2Shut.Name = "btnSrv2Shut"
+        Me.btnSrv2Shut.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv2Shut.TabIndex = 5
+        Me.btnSrv2Shut.Text = "Shutdown"
+        Me.btnSrv2Shut.UseVisualStyleBackColor = False
+        '
+        'btnSrv3Reboot
+        '
+        Me.btnSrv3Reboot.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSrv3Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv3Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv3Reboot.Location = New System.Drawing.Point(275, 152)
+        Me.btnSrv3Reboot.Name = "btnSrv3Reboot"
+        Me.btnSrv3Reboot.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv3Reboot.TabIndex = 6
+        Me.btnSrv3Reboot.Text = "Reboot"
+        Me.btnSrv3Reboot.UseVisualStyleBackColor = False
+        '
+        'btnSrv2Reboot
+        '
+        Me.btnSrv2Reboot.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSrv2Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv2Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv2Reboot.Location = New System.Drawing.Point(275, 123)
+        Me.btnSrv2Reboot.Name = "btnSrv2Reboot"
+        Me.btnSrv2Reboot.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv2Reboot.TabIndex = 4
+        Me.btnSrv2Reboot.Text = "Reboot"
+        Me.btnSrv2Reboot.UseVisualStyleBackColor = False
+        '
+        'lblServer3
+        '
+        Me.lblServer3.AutoSize = True
+        Me.lblServer3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServer3.Location = New System.Drawing.Point(9, 157)
+        Me.lblServer3.Name = "lblServer3"
+        Me.lblServer3.Size = New System.Drawing.Size(53, 13)
+        Me.lblServer3.TabIndex = 4
+        Me.lblServer3.Text = "Server - 3"
+        Me.lblServer3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblServer2
+        '
+        Me.lblServer2.AutoSize = True
+        Me.lblServer2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServer2.Location = New System.Drawing.Point(9, 128)
+        Me.lblServer2.Name = "lblServer2"
+        Me.lblServer2.Size = New System.Drawing.Size(53, 13)
+        Me.lblServer2.TabIndex = 3
+        Me.lblServer2.Text = "Server - 2"
+        Me.lblServer2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'btnSrv1Shut
+        '
+        Me.btnSrv1Shut.BackColor = System.Drawing.Color.IndianRed
+        Me.btnSrv1Shut.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv1Shut.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv1Shut.Location = New System.Drawing.Point(356, 93)
+        Me.btnSrv1Shut.Name = "btnSrv1Shut"
+        Me.btnSrv1Shut.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv1Shut.TabIndex = 3
+        Me.btnSrv1Shut.Text = "Shutdown"
+        Me.btnSrv1Shut.UseVisualStyleBackColor = False
+        '
+        'btnSrv1Reboot
+        '
+        Me.btnSrv1Reboot.BackColor = System.Drawing.Color.OrangeRed
+        Me.btnSrv1Reboot.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnSrv1Reboot.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.btnSrv1Reboot.Location = New System.Drawing.Point(275, 93)
+        Me.btnSrv1Reboot.Name = "btnSrv1Reboot"
+        Me.btnSrv1Reboot.Size = New System.Drawing.Size(75, 23)
+        Me.btnSrv1Reboot.TabIndex = 2
+        Me.btnSrv1Reboot.Text = "Reboot"
+        Me.btnSrv1Reboot.UseVisualStyleBackColor = False
+        '
+        'lblServer1
+        '
+        Me.lblServer1.AutoSize = True
+        Me.lblServer1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.lblServer1.Location = New System.Drawing.Point(9, 98)
+        Me.lblServer1.Name = "lblServer1"
+        Me.lblServer1.Size = New System.Drawing.Size(53, 13)
+        Me.lblServer1.TabIndex = 0
+        Me.lblServer1.Text = "Server - 1"
+        Me.lblServer1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frmMain
         '
@@ -587,4 +600,6 @@ Partial Class frmMain
     Friend WithEvents lblPortStatus As Label
     Friend WithEvents ToolStripSplitButton1 As ToolStripSplitButton
     Friend WithEvents GetLANIPToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents RegScreenToolStripMenuItem1 As ToolStripMenuItem
 End Class

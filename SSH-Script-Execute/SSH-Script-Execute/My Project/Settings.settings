@@ -20,9 +20,6 @@
     <Setting Name="stgPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">22</Value>
     </Setting>
-    <Setting Name="stgRunCount" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="stgHost1" Type="System.String" Scope="User">
       <Value Profile="(Default)">Ubuntu Server Test</Value>
     </Setting>
@@ -67,12 +64,6 @@
     </Setting>
     <Setting Name="stgHostPort3" Type="System.String" Scope="User">
       <Value Profile="(Default)">22</Value>
-    </Setting>
-    <Setting Name="stgSerial" Type="System.String" Scope="User">
-      <Value Profile="(Default)">67DB-87C6-EDB0-F20C-9518-AC0A-75BE-180F-BCE3-CAC3-1BCB-8576</Value>
-    </Setting>
-    <Setting Name="stgClientName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Luigi Monk</Value>
     </Setting>
   </Settings>
 </SettingsFile>

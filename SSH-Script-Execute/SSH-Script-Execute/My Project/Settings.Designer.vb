@@ -128,18 +128,6 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
-        Public Property stgRunCount() As String
-            Get
-                Return CType(Me("stgRunCount"),String)
-            End Get
-            Set
-                Me("stgRunCount") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Ubuntu Server Test")>  _
         Public Property stgHost1() As String
             Get
@@ -315,30 +303,6 @@ Namespace My
             End Get
             Set
                 Me("stgHostPort3") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("67DB-87C6-EDB0-F20C-9518-AC0A-75BE-180F-BCE3-CAC3-1BCB-8576")>  _
-        Public Property stgSerial() As String
-            Get
-                Return CType(Me("stgSerial"),String)
-            End Get
-            Set
-                Me("stgSerial") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Luigi Monk")>  _
-        Public Property stgClientName() As String
-            Get
-                Return CType(Me("stgClientName"),String)
-            End Get
-            Set
-                Me("stgClientName") = value
             End Set
         End Property
     End Class

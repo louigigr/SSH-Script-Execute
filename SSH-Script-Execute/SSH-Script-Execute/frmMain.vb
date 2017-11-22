@@ -4,7 +4,7 @@ Public Class frmMain
 
     Dim qgFunc As New qgFunctions
     Public _MyCompanyKey As Byte() = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24}
-    Public _MyCompanyIV As Byte() = {1, 2, 3, 4, 5, 6, 7, 8}
+    Public _MyCompanyIV As Byte() = {49, 126, 93, 154, 74, 213, 45, 80}
 
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
         Dim d As Boolean = My.Computer.Network.Ping(My.Settings.stgHost, 1000)
@@ -37,29 +37,36 @@ Public Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CenterToScreen()
+        Dim runme As New qgFunctions
+        Dim myruntime = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Runtime", Nothing)
+        Dim random As New Random()
+        Dim plustimes = Convert.ToString(random.Next(10, 20))
+        If myruntime = "0" Or myruntime = "" Then
 
-        If My.Settings.stgRunCount = 0 Then
             txtOutput.AppendText("This is your first run, define your settings by going to" + vbNewLine +
                    "Menu -> Edit -> Setup" + vbNewLine + "Menu -> Edit -> Host List" + vbNewLine +
                    vbNewLine + "Also Make sure you grab the ssh keys each time you make" + vbNewLine +
                    "changes to the Host List panel" + vbNewLine +
                    "Make sure you set the password right or the program will fail" + vbNewLine)
             Try
-                My.Computer.Registry.CurrentUser.CreateSubKey("QGSSHRUN")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\QGSSHRUN", "Company", "Quadrant Global Ltd")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\QGSSHRUN", "ProductSerial", qgFunc.AES_Encrypt(qgFunc.RandomString(160), "2133550"))
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\QGSSHRUN", "CustomerName", "")
-                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\QGSSHRUN", "RegKey", "")
-
-
+                My.Computer.Registry.CurrentUser.CreateSubKey("Software\qgrun")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "Company", "")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "ProductSerial", qgFunc.AES_Encrypt(qgFunc.RandomString(160), "th3seEirialnuNber"))
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "CustomerName", "")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "RegKey", "")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "FeatureSet", "Single Host")
+                My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "Runtime", "0")
+                myruntime = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Runtime", Nothing)
 
             Catch ex As Exception
-
+                txtOutput.AppendText(ex.Message)
             End Try
-            'frmSettings.Show()
-            My.Settings.stgRunCount = My.Settings.stgRunCount + 1
+
+            myruntime = Convert.ToInt64(myruntime) + Convert.ToInt64(plustimes)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "Runtime", myruntime)
         Else
-            My.Settings.stgRunCount = My.Settings.stgRunCount + 1
+            myruntime = Convert.ToInt64(myruntime) + Convert.ToInt64(plustimes)
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\qgrun", "Runtime", myruntime)
         End If
 
 
@@ -85,64 +92,48 @@ Public Class frmMain
         comConType.SelectedItem = "Conect Using Custom Port"
 
         ' LICENSE CHECK
-        Dim keyvalue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\QGSSHRUN", "Regkey", Nothing)
-        If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\QGSSHRUN", "Regkey", Nothing) Is Nothing Then
+        Dim q As New qgFunctions
+        Dim keyvalue = q.AES_Decrypt(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "RegKey", Nothing), "th3seEirialnuNber")
+        'Dim keyvalue = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Regkey", Nothing)
+        If My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Regkey", Nothing) Is Nothing Then
             MsgBox("No REGISTRATION FOUND")
-            frmLicSplash.Show()
-            Me.Opacity = 0
+            Panel1.Enabled = False
+            HostsListToolStripMenuItem.Enabled = False
+            btnPingHost.Enabled = False
 
         Else
             Try
+
                 Dim locKeyHandler As OMBKeyBuy.KeyBuyer = New OMBKeyBuy.KeyBuyer(_MyCompanyKey, _MyCompanyIV)
-                Dim locFeatureBeingBought As Key.ProductOrProductFeatureSet = locKeyHandler.BuyKey("The Great Hello World Software Company",
-                                                                                                   "1234567891234567", My.Settings.stgClientName,
-                                                                                                   qgFunc.AES_Decrypt(keyvalue, "2133"))
-                MsgBox("licence pass")
+                Dim locFeatureBeingBought As Key.ProductOrProductFeatureSet = locKeyHandler.BuyKey(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun",
+                                                                                                                                 "Company",
+                                                                                                                                 Nothing),
+                                                                                                   q.AES_Decrypt(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun",
+                                                                                                                                               "ProductSerial",
+                                                                                                                                               Nothing), "th3seEirialnuNber"),
+                                                                                                   My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun",
+                                                                                                                                 "CustomerName", Nothing), keyvalue)
+
+                ' MsgBox("licence pass")
+
             Catch ex As Exception
-                MsgBox("licence fail")
-                frmLicSplash.Show()
-                Me.Opacity = 0
+
+                ' MsgBox("licence fail")
+                Panel1.Enabled = False
+                HostsListToolStripMenuItem.Enabled = False
+                btnPingHost.Enabled = False
+
             End Try
-
-
 
         End If
 
+        ToolStripStatusLabel1.Text = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Company", Nothing) + " - " +
+            My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "FeatureSet", Nothing)
 
-        'If My.Settings.stgClientName = "" Or My.Settings.stgSerial = "" Then
-        '    MsgBox("Software needs registration")
-        'Else
-        '    Try
-        '        ' Create the key consuming/buying object
-        '        Dim locKeyHandler As OMBKeyBuy.KeyBuyer = New OMBKeyBuy.KeyBuyer(_MyCompanyKey, _MyCompanyIV)
-
-        '        ' Validate the key, if its valid then the feature set it unlocks will be returned, if invalid then various errors are thrown
-
-        '        Dim locFeatureBeingBought As Key.ProductOrProductFeatureSet = locKeyHandler.BuyKey("The Great Hello World Software Company", "1234567891234567", My.Settings.stgClientName, My.Settings.stgSerial)
-
-        '        'Me.Hide()
-        '        'frmMain.Show()
-        '        ' Clear sell side of the demo form
-        '        'lblSellStatus.Text = ""
-        '        'lblSellFeature.Text = ""
-        '        'txtSellCustomerName.Text = ""
-        '        'txtSellKey.Text = ""
-        '    Catch ex As Exception
-        '        Me.Opacity = 0
-        '        frmLicSplash.Show()
-
-
-        '        'lblBuyStatus.Text = ex.Message
-        '        'lblBuyFeature.Text = ""
-        '        'txtBuyKey.Text = ""
-        '        'txtBuyCustomerName.Text = ""
-        '    End Try
-        'End If
 
     End Sub
 
-    Private Sub SetupToolStripMenuItem_Click(sender As Object,
-                                             e As EventArgs) Handles SetupToolStripMenuItem.Click
+    Private Sub SetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetupToolStripMenuItem.Click
 
         frmSettings.Show()
 
@@ -178,7 +169,6 @@ Public Class frmMain
 
     Private Sub btnSrv1Reboot_Click(sender As Object, e As EventArgs) Handles btnSrv1Reboot.Click
         qgFunc.RebootServer(My.Settings.stgHostIP1, My.Settings.stgHostRoot1, My.Settings.stgHostPass1, My.Settings.stgHostPort1, comConType, txtOutput)
-        'RebootServer(My.Settings.stgHostIP1, My.Settings.stgHostRoot1, My.Settings.stgHostPass1, My.Settings.stgHostPort1, comConType, txtOutput)
 
     End Sub
 
@@ -253,7 +243,14 @@ Public Class frmMain
         frmLicSplash.Show()
     End Sub
 
-    Private Sub lblServer1_Click(sender As Object, e As EventArgs) Handles lblServer1.Click
-        txtOutput.AppendText(qgFunc.getMacAddress())
+    Private Sub RegScreenToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RegScreenToolStripMenuItem1.Click
+
+        frmLicSplash.Show()
+
+    End Sub
+
+    Private Sub frmMain_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
+        ToolStripStatusLabel1.Text = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Company", Nothing) + " - " +
+            My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "FeatureSet", Nothing)
     End Sub
 End Class
