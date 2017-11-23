@@ -1,4 +1,5 @@
-﻿Imports OMBKey
+﻿Imports System.Deployment.Application
+Imports OMBKey
 
 Public Class frmMain
 
@@ -37,6 +38,13 @@ Public Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CenterToScreen()
+        Try
+            Me.Text = "SSH Script Execute " + "v" + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString
+        Catch ex As Exception
+            Me.Text = "SSH Script Execute "
+        End Try
+
+
         Dim runme As New qgFunctions
         Dim myruntime = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\qgrun", "Runtime", Nothing)
         Dim random As New Random()
